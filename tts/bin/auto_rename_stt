@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+# auto_rename_stt ランチャー (cross-platform)。どのディレクトリからでも実行できる。
+# ~/.local/bin にシンボリックリンクを張って使う想定 (readlink -f で実体を解決)。
+# auto_rename_stt.py は SBV2 venv (torch / style_bert_vits2 / alkana 等) を要するため venv を優先。
+set -euo pipefail
+SELF="$(readlink -f "${BASH_SOURCE[0]}" 2>/dev/null || echo "${BASH_SOURCE[0]}")"
+TTS_DIR="$(cd "$(dirname "$SELF")/.." && pwd)"
+
+pick_py() {
+  # 明示指定 > SBV2 venv(Linux) > SBV2 venv(Windows) > system python
+  local c
+  for c in "${SBV2_VENV_PYTHON:-}" \
+           "$HOME/tts/Style-Bert-VITS2/venv/bin/python" \
+           "/c/tmp/sbv2_venv/Scripts/python.exe"; do
+    [ -n "$c" ] && [ -x "$c" ] && { printf '%s\n' "$c"; return; }
+  done
+  command -v python3 2>/dev/null || command -v python 2>/dev/null
+}
+# set -e のもとでは pick_py の失敗がそのまま代入に伝わり、下のメッセージを出す前に
+# シェルが終了してしまう (python が無い環境で「無言で即終了」になる)。|| true で止める
+PY="$(pick_py || true)"
+if [ -z "$PY" ]; then
+    {
+        echo "python が見つかりません。次の順で探しました:"
+        echo "  1. 環境変数 SBV2_VENV_PYTHON (現在: ${SBV2_VENV_PYTHON:-未設定})"
+        echo "  2. $HOME/tts/Style-Bert-VITS2/venv/bin/python"
+        echo "  3. /c/tmp/sbv2_venv/Scripts/python.exe"
+        echo "  4. PATH 上の python3 / python"
+        echo "使う python を指定する: SBV2_VENV_PYTHON=/path/to/python $0 ..."
+    } >&2
+    exit 1
+fi
+
+# faster-whisper (CTranslate2) は libcudnn_ops_infer.so.8 を dlopen するが、
+# pip の nvidia-* パッケージは venv 内に置くだけで LD_LIBRARY_PATH を設定しない。
+# 素で実行すると:
+#   Could not load library libcudnn_ops_infer.so.8 → stt.py がエラー終了
+# となるため、venv の nvidia/*/lib を **先頭に** 足す。
+# ⚠ システムの CUDA が先に来ると別の不整合を招くので、必ず先頭に置くこと。
+_VENV_ROOT="$(dirname "$(dirname "$PY")")"
+_NV_LIBS="$(ls -d "$_VENV_ROOT"/lib/python*/site-packages/nvidia/*/lib 2>/dev/null | tr '\n' ':')"
+if [ -n "$_NV_LIBS" ]; then
+  export LD_LIBRARY_PATH="${_NV_LIBS}${LD_LIBRARY_PATH:-}"
+fi
+
+exec "$PY" "$TTS_DIR/auto_rename_stt.py" "$@"

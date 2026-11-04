@@ -1,0 +1,2762 @@
+reading,written
+# 共通辞書
+#   左: 読み（カナ/ひらがな/表記揺れ）
+#   右: 正しい表記（英語/漢字）
+#
+# TTS: 右 → 左 で置換（「Slack」を「スラック」と発音させる）
+# STT: 左 → 右 で置換（「スラック」を「Slack」と表記する）
+
+# 製品名
+クラウド,cloud
+クラウド,Cloud
+エムユーエヌ,MUN
+いろどり,Irodori
+コワーク,Cowork
+
+# ツール・サービス名
+スラック,Slack
+ドッカー,Docker
+ギット,Git
+ギットハブ,GitHub
+ギットラブ,GitLab
+ノード,Node
+ブイエスコード,VSCode
+クローム,Chrome
+ファイアフォックス,Firefox
+ウブントゥ,Ubuntu
+リナックス,Linux
+ウィンドウズ,Windows
+パイトーチ,PyTorch
+ナンパイ,NumPy
+パンダス,Pandas
+グラディオ,Gradio
+ユニコーン,Uvicorn
+ファストエーピーアイ,FastAPI
+エヌピーエム,npm
+マークダウン,Markdown
+ミーティング,MTG
+# STT誤認識補正
+あじゅーる,Azure
+アジュール,Azure
+ストレージ,Storage
+ストレージ,storage
+りゅうど,粒度
+
+# IT用語
+セットアップ,setup
+キーボード,keyboard
+スクリーンショット,screenshot
+ダウンロード,download
+アップロード,upload
+アップデート,update
+パッケージ,package
+デバッグ,debug
+エレクトロン,Electron
+ウェブパック,webpack
+ランタイム,runtime
+ミドルウェア,middleware
+フレームワーク,framework
+データベース,database
+テンプレート,template
+コンポーネント,component
+コンテナ,container
+インスタンス,instance
+インターフェース,interface
+パイプライン,pipeline
+ワークフロー,workflow
+エンドポイント,endpoint
+ペイロード,payload
+コールバック,callback
+ローカルホスト,localhost
+タイムアウト,timeout
+ロールバック,rollback
+デプロイ,deploy
+リリース,release
+プラグイン,plugin
+ウィジェット,widget
+レイアウト,layout
+トークン,token
+キャッシュ,cache
+キュー,queue
+バッチ,batch
+クロン,cron
+デーモン,daemon
+プロキシ,proxy
+ルーター,router
+ソケット,socket
+スレッド,thread
+プロセス,process
+アシンク,async
+シンク,sync
+ミューテックス,mutex
+チャンク,chunk
+ストリーム,stream
+バッファ,buffer
+パーサー,parser
+リンター,linter
+フォーマッター,formatter
+コンパイラ,compiler
+トランスパイラ,transpiler
+バンドラー,bundler
+ローダー,loader
+ハンドラー,handler
+リスナー,listener
+リゾルバー,resolver
+プロバイダー,provider
+ラッパー,wrapper
+ヘルパー,helper
+ユーティリティ,utility
+ロガー,logger
+トラッカー,tracker
+ウォッチャー,watcher
+スケジューラー,scheduler
+ランナー,runner
+ワーカー,worker
+マネージャー,manager
+コントローラー,controller
+サービス,service
+ゲートウェイ,gateway
+ウェブフック,webhook
+サンドボックス,sandbox
+ワークツリー,worktree
+チェックアウト,checkout
+リベース,rebase
+スタッシュ,stash
+フェッチ,fetch
+アップストリーム,upstream
+ダウンストリーム,downstream
+クローン,clone
+コンポーズ,compose
+リッスン,listen
+パフォーマンス,performance
+リファクタ,refactor
+フィーチャー,feature
+ホットフィックス,hotfix
+バグフィックス,bugfix
+ベンダー,vendor
+モジュール,module
+
+# ハードウェア・端末
+フォン,phone
+スマートフォン,smartphone
+スマートフォン,Smartphone
+タブレット,tablet
+タブレット,Tablet
+ラップトップ,laptop
+ラップトップ,Laptop
+デスクトップ,desktop
+デスクトップ,Desktop
+マウス,mouse
+マウス,Mouse
+モニター,monitor
+キーボード,keyboard
+サーバー,server
+サーバー,Server
+クライアント,client
+クライアント,Client
+デバイス,device
+デバイス,Device
+センサー,sensor
+カメラ,camera
+マイク,microphone
+マイク,mic
+スピーカー,speaker
+ヘッドセット,headset
+ルーター,router
+スイッチ,switch
+
+# 一般的な英単語
+ファイル,file
+フォルダ,folder
+ディレクトリ,directory
+パス,path
+ルート,root
+ホーム,home
+ユーザー,user
+アドミン,admin
+オーナー,owner
+ロール,role
+スコープ,scope
+ステータス,status
+エラー,error
+ウォーニング,warning
+サクセス,success
+フェイルド,failed
+ペンディング,pending
+アクティブ,active
+ディセーブルド,disabled
+イネーブルド,enabled
+トゥルー,true
+フォールス,false
+ヌル,null
+
+# ファイル拡張子
+テキスト,.txt
+テキスト,txt
+エムディー,.md
+エムディー,md
+ピーワイ,.py
+ピーワイ,py
+ジェイエス,.js
+ジェイエス,js
+ティーエス,.ts
+ティーエス,ts
+ジェイエスエックス,.jsx
+ジェイエスエックス,jsx
+ティーエスエックス,.tsx
+ティーエスエックス,tsx
+シェル,.sh
+シェル,sh
+バット,.bat
+バット,bat
+ピーエスワン,.ps1
+ピーエスワン,ps1
+ワイエムエル,.yml
+ワイエムエル,yml
+エンブ,.env
+エンブ,env
+ログ,.log
+ログ,log
+ジソン,.json
+ジソン,json
+エイチティーエムエル,.html
+シーエスエス,.css
+ピーディーエフ,.pdf
+ウェーブ,.wav
+エムピースリー,.mp3
+エムピースリー,mp3
+エムピーフォー,.mp4
+エムピーフォー,mp4
+ピング,.png
+ジェイペグ,.jpg
+ジェイペグ,.jpeg
+ジフ,.gif
+エスブイジー,.svg
+ジップ,.zip
+タール,.tar
+エフビーエックス,.fbx
+グルティーエフ,.gltf
+グルビー,.glb
+
+# 略語（TTS用: アルファベット → 読み上げ用カナ表記）
+アイディーイー,IDE
+エーピーアイ,API
+ユーアールエル,URL
+ユーアールアイ,URI
+シーエルアイ,CLI
+ジーユーアイ,GUI
+エルエルエム,LLM
+ジーピーユー,GPU
+シーピーユー,CPU
+ラム,RAM
+ブイラム,VRAM
+クーダ,CUDA
+エスエスディー,SSD
+エイチディーディー,HDD
+エスエスエイチ,SSH
+エスエスエル,SSL
+ティーエルエス,TLS
+エイチティーティーピー,HTTP
+エイチティーティーピーエス,HTTPS
+レスト,REST
+ジェイソン,JSON
+ヤメル,YAML
+エックスエムエル,XML
+シーエスブイ,CSV
+エスキューエル,SQL
+エイチティーエムエル,HTML
+シーエスエス,CSS
+ピーディーエフ,PDF
+ウェーブ,WAV
+ピング,PNG
+ジェイペグ,JPEG
+ジフ,GIF
+エスブイジー,SVG
+ティーティーエス,TTS
+エスティーティー,STT
+エヌエルピー,NLP
+エーアイ,AI
+エムエル,ML
+シーアイ,CI
+シーディー,CD
+ピーアール,PR
+オーエス,OS
+アイピー,IP
+ディーエヌエス,DNS
+ティーシーピー,TCP
+ユーディーピー,UDP
+シーブイイー,CVE
+オーオーエム,OOM
+イーオーエフ,EOF
+ヌル,NULL
+リードミー,README
+チェンジログ,CHANGELOG
+トゥードゥー,TODO
+フィックスミー,FIXME
+ハック,HACK
+ディーエヌピー,DNP
+エスエムエス,SMS
+エムエムエス,MMS
+イーメール,Email
+イーメール,email
+イーメール,e-mail
+エフティーピー,FTP
+エスエフティーピー,SFTP
+エスエムティーピー,SMTP
+ポップ,POP
+アイマップ,IMAP
+ユーアールエヌ,URN
+ユーユーアイディー,UUID
+ジーユーアイディー,GUID
+シーアイディー,CID
+ピーアイディー,PID
+ビーアイ,BI
+イーティーエル,ETL
+イーエルティー,ELT
+オーエルティーピー,OLTP
+オーエルエーピー,OLAP
+ディーディーエル,DDL
+ディーエムエル,DML
+ディーエスエル,DSL
+ディーエヌエス,DNS
+シーエヌネーム,CNAME
+エーレコード,A record
+エムエックスレコード,MX record
+
+# ビジネス・マネジメント系略語
+ケーピーアイ,KPI
+ケージーアイ,KGI
+オーケーアール,OKR
+ピーディーシーエー,PDCA
+ケーピーティー,KPT
+ダブリュビーエス,WBS
+ピーエムオー,PMO
+ピーエル,PL
+ビーエス,BS
+シーエス,CS
+イーエス,ES
+エイチアール,HR
+シーアールエム,CRM
+イーアールピー,ERP
+エスシーエム,SCM
+ビーピーエム,BPM
+ビーピーアール,BPR
+ビーアイ,BI
+ピーオーシー,PoC
+ピーオーシー,POC
+エムブイピー,MVP
+エムビーオー,MBO
+エヌピーエス,NPS
+シーサット,CSAT
+
+# マーケティング・KPI系
+アールオーアイ,ROI
+ロアス,ROAS
+シーティーアール,CTR
+シーブイアール,CVR
+シーピーシー,CPC
+シーピーエー,CPA
+シーピーエム,CPM
+エルティーブイ,LTV
+ディーエーユー,DAU
+エムエーユー,MAU
+ダブリュエーユー,WAU
+エーアールアール,ARR
+エムアールアール,MRR
+シーエーシー,CAC
+エーアールピーユー,ARPU
+チャーンレート,Churn Rate
+チャーン,Churn
+リテンション,Retention
+エンゲージメント,Engagement
+
+# B2B/B2C/SaaS等
+ビーツービー,B2B
+ビーツーシー,B2C
+シーツーシー,C2C
+ディーツーシー,D2C
+サース,SaaS
+パース,PaaS
+アイアース,IaaS
+バース,BaaS
+ファース,FaaS
+シーアース,CaaS
+エックスアース,XaaS
+
+# 数字を含む技術用語
+ログフォージェイ,log4j
+ログフォージェイエス,log4js
+ログフォージェイブイ,log4v
+スラックフォージェイ,slf4j
+アイエイティーンエヌ,i18n
+エルテンエヌ,l10n
+エーイレブンワイ,a11y
+インターナショナリゼーション,internationalization
+ローカリゼーション,localization
+アクセシビリティ,accessibility
+エックスエックスエックス,xxx
+ピーツーピー,P2P
+ピーツーピー,p2p
+ファイブジー,5G
+フォージー,4G
+スリージー,3G
+ツーエックス,2x
+ファイブエックス,5x
+シーフォーディー,C4D
+ティーエル,T+L
+イーエスツー,ES2
+イーエスシックス,ES6
+イーエス2015,ES2015
+ブイ2,V2
+ブイ3,V3
+
+# 運用・SRE系
+エスエルエー,SLA
+エスエルオー,SLO
+エスエルアイ,SLI
+エムティーティーアール,MTTR
+エムティーティーエフ,MTTF
+エムティービーエフ,MTBF
+アールピーオー,RPO
+アールティーオー,RTO
+オンコール,On-call
+オンコール,oncall
+インシデント,Incident
+インシデント,incident
+ポストモーテム,Postmortem
+ポストモーテム,postmortem
+ランブック,Runbook
+ランブック,runbook
+エフエーキュー,FAQ
+エフエーキュー,F&Q
+
+# 記号
+パーセント,%
+
+# VMインスタンスサイズ（サフィックス）
+ナノ,nano
+マイクロ,micro
+スモール,small
+ミディアム,medium
+ラージ,large
+エックスラージ,xlarge
+ツーエックスラージ,2xlarge
+フォーエックスラージ,4xlarge
+エイトエックスラージ,8xlarge
+トゥエルブエックスラージ,12xlarge
+シックスティーンエックスラージ,16xlarge
+トゥエンティーフォーエックスラージ,24xlarge
+サーティーツーエックスラージ,32xlarge
+フォーティーエイトエックスラージ,48xlarge
+メタル,metal
+
+# AWS EC2 インスタンスファミリー
+ティーツー,t2
+ティースリー,t3
+ティースリーエー,t3a
+ティーフォージー,t4g
+エムファイブ,m5
+エムファイブエー,m5a
+エムシックスアイ,m6i
+エムシックスジー,m6g
+エムセブンアイ,m7i
+シーファイブ,c5
+シーシックスアイ,c6i
+シーシックスジー,c6g
+シーセブンアイ,c7i
+アールファイブ,r5
+アールシックスアイ,r6i
+ジーフォーディーエヌ,g4dn
+ジーファイブ,g5
+ジーシックス,g6
+ピースリー,p3
+ピーフォーディー,p4d
+インフワン,inf1
+インフツー,inf2
+アイスリー,i3
+アイフォーアイ,i4i
+
+# Azure VM バージョンサフィックス
+ブイスリー,v3
+ブイフォー,v4
+ブイファイブ,v5
+ブイシックス,v6
+
+# reCAPTCHA
+リキャプチャ,reCAPTCHA
+リキャプチャ,recaptcha
+キャプチャ,CAPTCHA
+キャプチャ,captcha
+エイチキャプチャ,hCaptcha
+
+# Docker
+ドッカーファイル,Dockerfile
+ドッカーファイル,dockerfile
+ドッカーコンポーズ,docker-compose
+ドッカーコンポーズ,Docker Compose
+ドッカーコンポーズ,DockerCompose
+ドッカーハブ,Docker Hub
+ドッカーハブ,DockerHub
+ドッカーデスクトップ,Docker Desktop
+ドッカースウォーム,Docker Swarm
+ポッドマン,Podman
+ポッドマン,podman
+コンテナーディー,containerd
+オーシーアイ,OCI
+ポーテイナー,Portainer
+ポーテイナー,portainer
+
+# Kubernetes
+クーブシーティーエル,kubectl
+ヘルム,Helm
+ヘルム,helm
+ケーエイツーエス,k8s
+ケースリーエス,k3s
+ミニクーブ,minikube
+ミニクーブ,Minikube
+カインド,kind
+クーブコンフィグ,kubeconfig
+ネームスペース,namespace
+ネームスペース,Namespace
+ポッド,Pod
+ポッド,pod
+デプロイメント,Deployment
+デプロイメント,deployment
+イングレス,Ingress
+イングレス,ingress
+コンフィグマップ,ConfigMap
+コンフィグマップ,configmap
+ステートフルセット,StatefulSet
+ステートフルセット,statefulset
+デーモンセット,DaemonSet
+デーモンセット,daemonset
+レプリカセット,ReplicaSet
+レプリカセット,replicaset
+ノードポート,NodePort
+ノードポート,nodeport
+クラスターアイピー,ClusterIP
+クラスターアイピー,clusterip
+クスタマイズ,Kustomize
+クスタマイズ,kustomize
+アルゴシーディー,ArgoCD
+アルゴシーディー,Argo CD
+フラックスシーディー,FluxCD
+フラックスシーディー,Flux CD
+イスティオ,Istio
+イスティオ,istio
+エンボイ,Envoy
+エンボイ,envoy
+トレーフィク,Traefik
+トレーフィク,traefik
+
+# コンテナ監視・オブザーバビリティ
+プロメテウス,Prometheus
+プロメテウス,prometheus
+グラファナ,Grafana
+グラファナ,grafana
+アラートマネージャー,Alertmanager
+アラートマネージャー,AlertManager
+ロキ,Loki
+ロキ,loki
+テンポ,Tempo
+テンポ,tempo
+イェーガー,Jaeger
+イェーガー,jaeger
+オープンテレメトリー,OpenTelemetry
+オーティーイーエル,OTEL
+オーティーイーエル,otel
+
+# コンテナレジストリ
+ジーシーアール,GCR
+ジーエイチシーアール,GHCR
+ハーバー,Harbor
+ハーバー,harbor
+
+# クラウド共通用語（Azure/AWS共通の構成パーツ・alkanaの誤読補正含む）
+ファンクションズ,Functions
+ファンクション,Function
+クバネティス,Kubernetes
+コンテナ,Container
+コンテナ,container
+コンテナズ,Containers
+インスタンス,Instances
+クラスター,Cluster
+ネットワーク,Network
+ネットワーク,network
+ゲートウェイ,Gateway
+ゲートウェイ,gateway
+ファイアウォール,Firewall
+ロードバランサー,LoadBalancer
+ロードバランサー,Load Balancer
+トラフィックマネージャー,TrafficManager
+トラフィックマネージャー,Traffic Manager
+フロントドア,FrontDoor
+フロントドア,Front Door
+データベース,Database
+データベース,database
+ブロブ,Blob
+ブロブ,blob
+テーブル,Table
+キュー,Queue
+レディス,Redis
+シナプス,Synapse
+データブリックス,Databricks
+データレイク,DataLake
+データレイク,Data Lake
+データファクトリ,DataFactory
+データファクトリ,Data Factory
+パイプラインズ,Pipelines
+イベントハブ,EventHub
+イベントハブ,Event Hub
+イベントグリッド,EventGrid
+イベントグリッド,Event Grid
+サービスバス,ServiceBus
+サービスバス,Service Bus
+キーボールト,KeyVault
+キーボールト,Key Vault
+センチネル,Sentinel
+ディフェンダー,Defender
+パービュー,Purview
+コグニティブ,Cognitive
+スピーチ,Speech
+ビジョン,Vision
+トランスレーター,Translator
+ボット,Bot
+モニター,Monitor
+インサイト,Insights
+アナリティクス,Analytics
+ロジック,Logic
+アプリ,Apps
+ウェブ,Web
+スタティック,Static
+コンピュート,Compute
+ストレージ,Storage
+ストレージ,storage
+アクティブディレクトリ,Active Directory
+アイデンティティ,Identity
+テナント,Tenant
+サブスクリプション,Subscription
+ハイブリッド,Hybrid
+エッジ,Edge
+スタック,Stack
+アーク,Arc
+スプリング,Spring
+コスモス,Cosmos
+コスモスディービー,CosmosDB
+コスモスディービー,Cosmos DB
+デブオプス,DevOps
+エムエルオプス,MLOps
+マイエスキューエル,MySQL
+ポストグレスキューエル,PostgreSQL
+ポストグレスキューエル,Postgres
+マリアディービー,MariaDB
+モンゴディービー,MongoDB
+ノーエスキューエル,NoSQL
+
+# Azure固有サービス
+アジュールアクティブディレクトリ,Azure Active Directory
+アジュールアクティブディレクトリ,AzureAD
+アジュールアクティブディレクトリ,Entra ID
+アジュールエーディー,Azure AD
+アジュールストレージ,Azure Storage
+アジュールブロブストレージ,Azure Blob Storage
+アジュールファンクションズ,Azure Functions
+アジュールキューバネティスサービス,Azure Kubernetes Service
+エーケーエス,AKS
+アジュールアプリサービス,Azure App Service
+アジュールバーチャルマシンズ,Azure Virtual Machines
+アジュールデブオプス,Azure DevOps
+アジュールパイプラインズ,Azure Pipelines
+アジュールモニター,Azure Monitor
+アジュールロジックアプリ,Azure Logic Apps
+アジュールサービスバス,Azure Service Bus
+アジュールイベントハブ,Azure Event Hub
+アジュールイベントグリッド,Azure Event Grid
+アジュールデータファクトリ,Azure Data Factory
+アジュールシナプスアナリティクス,Azure Synapse Analytics
+アジュールデータブリックス,Azure Databricks
+アジュールマシンラーニング,Azure Machine Learning
+アジュールオープンエーアイ,Azure OpenAI
+アジュールコグニティブサービス,Azure Cognitive Services
+アジュールキーボールト,Azure Key Vault
+アジュールセンチネル,Azure Sentinel
+アジュールパービュー,Azure Purview
+アジュールアーク,Azure Arc
+アジュールスタック,Azure Stack
+アジュールコスモスディービー,Azure Cosmos DB
+アジュールエスキューエルデータベース,Azure SQL Database
+アジュールシーディーエヌ,Azure CDN
+アジュールフロントドア,Azure Front Door
+アジュールロードバランサー,Azure Load Balancer
+アジュールアプリケーションゲートウェイ,Azure Application Gateway
+アジュールトラフィックマネージャー,Azure Traffic Manager
+アジュールディーエヌエス,Azure DNS
+アジュールファイアウォール,Azure Firewall
+
+# Azureサービス名のbare版（"Azure"接頭辞なしで現れた場合の読み）
+アプリサービス,App Service
+アプリサービス,AppService
+アプリケーションゲートウェイ,Application Gateway
+アプリケーションゲートウェイ,ApplicationGateway
+バーチャルマシン,Virtual Machine
+バーチャルマシン,VirtualMachine
+バーチャルマシンズ,Virtual Machines
+バーチャルマシンズ,VirtualMachines
+バーチャルネットワーク,Virtual Network
+バーチャルネットワーク,VirtualNetwork
+バーチャルネットワーク,VNet
+バーチャルネットワーク,VNET
+クバネティスサービス,Kubernetes Service
+コンテナレジストリ,Container Registry
+コンテナレジストリ,ContainerRegistry
+エーシーアール,ACR
+コンテナインスタンス,Container Instances
+コンテナインスタンス,ContainerInstances
+エーシーアイ,ACI
+コグニティブサービス,Cognitive Services
+コグニティブサービス,CognitiveServices
+マシンラーニング,Machine Learning
+マシンラーニング,MachineLearning
+シナプスアナリティクス,Synapse Analytics
+シナプスアナリティクス,SynapseAnalytics
+ブロブストレージ,Blob Storage
+ブロブストレージ,BlobStorage
+ファイルストレージ,File Storage
+ファイルストレージ,FileStorage
+キューストレージ,Queue Storage
+テーブルストレージ,Table Storage
+ディスクストレージ,Disk Storage
+エスキューエルデータベース,SQL Database
+エスキューエルデータベース,SQLDatabase
+エーピーアイマネジメント,API Management
+エーピーアイマネジメント,APIManagement
+エーピーアイマネジメント,APIM
+エクスプレスルート,ExpressRoute
+エクスプレスルート,Express Route
+ストリームアナリティクス,Stream Analytics
+ストリームアナリティクス,StreamAnalytics
+リソースマネージャー,Resource Manager
+リソースマネージャー,ResourceManager
+エーアールエム,ARM
+リソースグループ,Resource Group
+リソースグループ,ResourceGroup
+リージョン,region
+リージョン,Region
+アベイラビリティゾーン,Availability Zone
+アベイラビリティゾーン,AvailabilityZone
+バスチオン,Bastion
+プライベートリンク,Private Link
+プライベートリンク,PrivateLink
+プライベートエンドポイント,Private Endpoint
+プライベートエンドポイント,PrivateEndpoint
+サイトリカバリー,Site Recovery
+サイトリカバリー,SiteRecovery
+ノティフィケーションハブズ,Notification Hubs
+ノティフィケーションハブズ,NotificationHubs
+キャッシュフォアレディス,Cache for Redis
+シグナルアール,SignalR
+マップス,Maps
+バックアップ,Backup
+エイチディーインサイト,HDInsight
+エイチディーインサイト,HD Insight
+アイオーティーハブ,IoT Hub
+アイオーティーハブ,IoTHub
+アイオーティーエッジ,IoT Edge
+アイオーティーエッジ,IoTEdge
+スプリングアプリ,Spring Apps
+スプリングアプリ,SpringApps
+ファンクションアプリ,Function App
+ファンクションアプリ,FunctionApp
+ロジックアプリ,Logic App
+ロジックアプリ,LogicApp
+ロジックアプリス,Logic Apps
+ロジックアプリス,LogicApps
+ライトハウス,Lighthouse
+ブループリント,Blueprints
+ブループリント,Blueprint
+コミュニケーションサービス,Communication Services
+コミュニケーションサービス,CommunicationServices
+ヘルスボット,Health Bot
+ヘルスボット,HealthBot
+
+# AWS（Amazon Web Services）
+エーダブリューエス,AWS
+アマゾンウェブサービス,Amazon Web Services
+イーシーツー,EC2
+エス3,S3
+エススリー,S3
+ラムダ,Lambda
+アマゾンラムダ,Amazon Lambda
+エーダブリューエスラムダ,AWS Lambda
+ダイナモディービー,DynamoDB
+オーロラ,Aurora
+アマゾンオーロラ,Amazon Aurora
+アールディーエス,RDS
+アマゾンアールディーエス,Amazon RDS
+レッドシフト,Redshift
+アマゾンレッドシフト,Amazon Redshift
+イーエムアール,EMR
+グルー,Glue
+アテナ,Athena
+キネシス,Kinesis
+エスエヌエス,SNS
+エスキューエス,SQS
+シンプルキュー,SimpleQueue
+クラウドフロント,CloudFront
+クラウドウォッチ,CloudWatch
+クラウドフォーメーション,CloudFormation
+クラウドトレイル,CloudTrail
+ルート53,Route53
+ルートフィフティスリー,Route 53
+ブイピーシー,VPC
+イーケーエス,EKS
+イーシーエス,ECS
+イーシーアール,ECR
+ファーゲート,Fargate
+イーエフエス,EFS
+イービーエス,EBS
+アイエーエム,IAM
+ケーエムエス,KMS
+シークレッツマネージャー,SecretsManager
+シークレッツマネージャー,Secrets Manager
+ステップファンクションズ,StepFunctions
+ステップファンクションズ,Step Functions
+アプスシンク,AppSync
+アンプリファイ,Amplify
+セージメーカー,SageMaker
+ベッドロック,Bedrock
+ポリー,Polly
+レックス,Lex
+レコグニション,Rekognition
+コンプリヘンド,Comprehend
+コードコミット,CodeCommit
+コードビルド,CodeBuild
+コードデプロイ,CodeDeploy
+コードパイプライン,CodePipeline
+エラスティックビーンスタック,Elastic Beanstalk
+エラスティックサーチ,Elasticsearch
+オープンサーチ,OpenSearch
+
+# DB / SQL用語（alkana誤読の補正と未収録分）
+セレクト,SELECT
+セレクト,select
+インサート,INSERT
+インサート,insert
+アップデート,UPDATE
+デリート,DELETE
+デリート,delete
+ウェア,WHERE
+ウェア,where
+フロム,FROM
+ジョイン,JOIN
+ジョイン,join
+インナージョイン,INNER JOIN
+レフトジョイン,LEFT JOIN
+ライトジョイン,RIGHT JOIN
+アウタージョイン,OUTER JOIN
+クロスジョイン,CROSS JOIN
+グループバイ,GROUP BY
+オーダーバイ,ORDER BY
+ハビング,HAVING
+リミット,LIMIT
+オフセット,OFFSET
+ユニオン,UNION
+ディスティンクト,DISTINCT
+カウント,COUNT
+サム,SUM
+アベレージ,AVG
+マックス,MAX
+ミン,MIN
+アズ,AS
+ライク,LIKE
+ビトゥイーン,BETWEEN
+イズヌル,IS NULL
+イズノットヌル,IS NOT NULL
+イン,IN
+ノットイン,NOT IN
+エグジスツ,EXISTS
+ケース,CASE
+ホエン,WHEN
+ゼン,THEN
+エルス,ELSE
+エンド,END
+バリューズ,VALUES
+イントゥー,INTO
+セット,SET
+アセンディング,ASC
+ディセンディング,DESC
+エニー,ANY
+オール,ALL
+
+# DDL
+クリエイト,CREATE
+ドロップ,DROP
+ドロップ,drop
+アルター,ALTER
+トランケート,TRUNCATE
+トランケート,truncate
+インデックス,INDEX
+ビュー,VIEW
+トリガー,TRIGGER
+トリガー,trigger
+プロシージャー,PROCEDURE
+ストアドプロシージャ,Stored Procedure
+スキーマ,SCHEMA
+コンストレイント,CONSTRAINT
+コンストレイント,constraint
+プライマリキー,PRIMARY KEY
+フォーリンキー,FOREIGN KEY
+ユニークキー,UNIQUE KEY
+オートインクリメント,AUTO_INCREMENT
+オートインクリメント,AUTO INCREMENT
+
+# トランザクション系
+トランザクション,TRANSACTION
+トランザクション,transaction
+トランザクション,Transaction
+コミット,COMMIT
+ロールバック,ROLLBACK
+セーブポイント,SAVEPOINT
+ロック,LOCK
+デッドロック,DEADLOCK
+デッドロック,deadlock
+アイソレーション,ISOLATION
+アイソレーション,isolation
+アシッド,ACID
+リードコミット,Read Committed
+リピータブルリード,Repeatable Read
+シリアライザブル,Serializable
+
+# DB概念・補正
+カラム,column
+カラム,Column
+カラム,COLUMN
+ロウ,row
+レコード,record
+フィールド,field
+タプル,tuple
+テーブル,table
+クエリ,query
+クエリ,Query
+クエリ,QUERY
+スカラ,scalar
+ノーマライゼーション,Normalization
+デノーマライゼーション,Denormalization
+パーティション,Partition
+パーティション,partition
+シャーディング,Sharding
+レプリケーション,Replication
+レプリケーション,replication
+バックアップ,Backup
+バックアップ,backup
+リストア,Restore
+リストア,restore
+スナップショット,Snapshot
+スナップショット,snapshot
+マイグレーション,Migration
+マイグレーション,migration
+シード,Seed
+ダンプ,Dump
+リカバリー,Recovery
+クラスタード,Clustered
+ノンクラスタード,Non-Clustered
+
+# ORM・クエリビルダー
+オーアールエム,ORM
+イーアールデータベース,ER
+イーアール図,ER図
+アクティブレコード,ActiveRecord
+シーケライズ,Sequelize
+プリズマ,Prisma
+ハイバネート,Hibernate
+
+# サーバ・ログ系（状態・結果）
+サクセスフル,successful
+サクセスフル,Successful
+サクセスフリー,successfully
+サクセスフリー,Successfully
+フェイルド,failed
+フェイルド,Failed
+フェイル,fail
+フェイリャー,failure
+フェイリャー,Failure
+イネーブル,enable
+イネーブル,Enable
+ディセーブル,disable
+ディセーブル,Disable
+ランニング,running
+ランニング,Running
+スターティング,starting
+スターティング,Starting
+ストッピング,stopping
+ストッピング,Stopping
+スターテッド,started
+スターテッド,Started
+ストップド,stopped
+ストップド,Stopped
+リスターテッド,restarted
+リスターティング,restarting
+レディ,ready
+レディ,Ready
+ウェイティング,waiting
+ウェイティング,Waiting
+アイドル,idle
+アイドル,Idle
+ビジー,busy
+ビジー,Busy
+クラッシュド,crashed
+キルド,killed
+エグジット,exit
+エグジット,Exit
+エグジテッド,exited
+ターミネイト,terminate
+ターミネイテッド,terminated
+ターミネイテッド,Terminated
+アボート,abort
+アボーテッド,aborted
+ダン,done
+ダン,Done
+コンプリート,complete
+コンプリーテッド,completed
+コンプリーテッド,Completed
+キャンセル,cancel
+キャンセルド,canceled
+キャンセルド,cancelled
+スキップ,skip
+スキップド,skipped
+リトライ,retry
+リトライイング,retrying
+インフォ,info
+インフォ,Info
+インフォ,INFO
+ファタル,fatal
+ファタル,FATAL
+クリティカル,critical
+クリティカル,CRITICAL
+ウォーン,WARN
+デバッグ,DEBUG
+
+# 接続・通信系
+コネクト,connect
+コネクテッド,connected
+コネクテッド,Connected
+ディスコネクト,disconnect
+ディスコネクテッド,disconnected
+ディスコネクテッド,Disconnected
+リコネクト,reconnect
+リスニング,listening
+リスニング,Listening
+リスン,listen
+レシーブド,received
+セント,sent
+アクセプテッド,accepted
+アクセプテッド,Accepted
+リジェクテッド,rejected
+リジェクテッド,Rejected
+リフューズド,refused
+ディナイド,denied
+グランテッド,granted
+エクスパイアド,expired
+エクスパイアド,Expired
+バリッド,valid
+インバリッド,invalid
+インバリッド,Invalid
+リクエスト,request
+レスポンス,response
+レスポンス,Response
+エグザンプル,example
+エグザンプル,Example
+エグザンプルズ,examples
+エグザンプルズ,Examples
+リクエスト,Request
+リダイレクト,redirect
+フォワード,forward
+タイムアウト,timeout
+タイムアウト,Timeout
+
+# 認証・権限
+オーセンティケイテッド,authenticated
+オーソライズド,authorized
+アンオーソライズド,unauthorized
+アンオーソライズド,Unauthorized
+フォビドン,forbidden
+フォビドン,Forbidden
+ログイン,login
+ログイン,Login
+ログアウト,logout
+ログアウト,Logout
+サインイン,signin
+サインアウト,signout
+サインアップ,signup
+レジスター,register
+
+# ビルド・デプロイ
+ビルド,build
+ビルディング,building
+ビルト,built
+コンパイル,compile
+コンパイルド,compiled
+デプロイド,deployed
+デプロイイング,deploying
+プッシュ,push
+プッシュド,pushed
+プル,pull
+プルド,pulled
+マージ,merge
+マージド,merged
+マージング,merging
+エスタブリッシュ,establish
+エスタブリッシュド,established
+
+# cron系
+クロン,cron
+クロン,crond
+クロンタブ,crontab
+クロンジョブ,cronjob
+クロンジョブ,cron job
+
+# シェル・Linux系
+バッシュ,bash
+バッシュ,Bash
+バッシュ,BASH
+ズィーシェル,zsh
+シェル,shell
+シェル,Shell
+ターミナル,terminal
+プロンプト,prompt
+コマンド,command
+コマンド,Command
+コマンドライン,commandline
+オプション,option
+フラグ,flag
+エイリアス,alias
+バリアブル,variable
+エクスポート,export
+ソース,source
+エンブ,env
+パイプ,pipe
+スタンダードイン,stdin
+スタンダードアウト,stdout
+スタンダードエラー,stderr
+
+# Linux基本コマンド
+エルエス,ls
+シーディー,cd
+エムケーディーアール,mkdir
+アールエム,rm
+エムブイ,mv
+シーピー,cp
+エルエヌ,ln
+カーネル,kernel
+ユーネーム,uname
+ホストネーム,hostname
+パスウード,passwd
+ユーザーアッド,useradd
+ユーザーモッド,usermod
+グループアッド,groupadd
+ヒストリー,history
+ウィッチ,which
+ティー,tee
+ダブリュシー,wc
+エックスアーグス,xargs
+ジップ,zip
+アンジップ,unzip
+アイエフコンフィグ,ifconfig
+アイピー,ip
+
+# パッケージマネージャー
+エーピーティー,apt
+エーピーティーゲット,apt-get
+ヤム,yum
+ディーエヌエフ,dnf
+スナップ,snap
+ブリュー,brew
+ピップ,pip
+コンダ,conda
+
+# Linuxコマンド
+グレップ,grep
+グレップ,Grep
+オーク,awk
+セド,sed
+ファインド,find
+ソート,sort
+ユニーク,uniq
+ディフ,diff
+パッチ,patch
+タール,tar
+ジージップ,gzip
+テイル,tail
+ヘッド,head
+キャット,cat
+レス,less
+モア,more
+マン,man
+エコー,echo
+プリントエフ,printf
+チェンジモード,chmod
+チェンジオーナー,chown
+スードゥー,sudo
+スードゥー,SUDO
+カール,curl
+ダブリュゲット,wget
+アールシンク,rsync
+エスシーピー,scp
+ピング,ping
+トレースルート,traceroute
+ネットスタット,netstat
+エヌマップ,nmap
+アイピーテーブルズ,iptables
+システムディー,systemd
+システムシーティーエル,systemctl
+ノーハップ,nohup
+スクリーン,screen
+ティーマックス,tmux
+ヴィム,vim
+イーマックス,emacs
+ナノ,nano
+シャットダウン,shutdown
+リブート,reboot
+マウント,mount
+アンマウント,unmount
+ディーエフ,df
+ディーユー,du
+ピーエス,ps
+トップ,top
+エイチトップ,htop
+キル,kill
+キルオール,killall
+ピーキル,pkill
+ジョブズ,jobs
+アット,at
+デート,date
+フーアイアム,whoami
+エスユー,su
+
+# Linux/Unix概念
+ファイルディスクリプタ,fd
+プロセスアイディー,pid
+ユーザーアイディー,uid
+グループアイディー,gid
+シンボリックリンク,symlink
+ハードリンク,hardlink
+パーミッション,permission
+オーナー,owner
+グループ,group
+ルート,root
+ホーム,home
+ライブラリ,library
+ライブラリ,lib
+ビン,bin
+イーティーシー,etc
+バー,var
+オプト,opt
+てんぷ,tmp
+てんぷ,/tmp
+
+# AI企業・モデル
+オープンエーアイ,OpenAI
+オープンエーアイ,openai
+アンソロピック,Anthropic
+アンソロピック,anthropic
+クロード,Claude
+クロード,claude
+ジーピーティー,GPT
+ジーピーティー,gpt
+チャットジーピーティー,ChatGPT
+チャットジーピーティー,chatgpt
+ジェミニ,Gemini
+ジェミニ,gemini
+グーグル,Google
+バード,Bard
+ミストラル,Mistral
+ミストラル,mistral
+ラマ,Llama
+ラマ,llama
+ラマ,LLaMA
+メタ,Meta
+ディープシーク,DeepSeek
+ディープシーク,Deepseek
+クウェン,Qwen
+クウェン,qwen
+コヒア,Cohere
+スタビリティーエーアイ,Stability AI
+スタビリティーエーアイ,StabilityAI
+ミッドジャーニー,Midjourney
+ミッドジャーニー,MidJourney
+ダリ,DALL-E
+ダリ,DALLE
+ダリ,Dall-E
+ステーブルディフュージョン,Stable Diffusion
+ステーブルディフュージョン,StableDiffusion
+ソラ,Sora
+ランウェイ,Runway
+ピカ,Pika
+イレブンラブズ,ElevenLabs
+イレブンラブズ,Eleven Labs
+ハギングフェイス,Hugging Face
+ハギングフェイス,HuggingFace
+ハギングフェイス,huggingface
+ラングチェーン,LangChain
+ラングチェーン,langchain
+ラマインデックス,LlamaIndex
+ラマインデックス,llamaindex
+オラマ,Ollama
+オラマ,ollama
+ブイエルエルエム,vLLM
+エルエムスタジオ,LM Studio
+エルエムスタジオ,LMStudio
+
+# AI/ML概念
+エルエルエムズ,LLMs
+ジェネラティブエーアイ,Generative AI
+ジェネラティブエーアイ,GenAI
+エージーアイ,AGI
+エーエスアイ,ASI
+マルチモーダル,Multimodal
+マルチモーダル,multimodal
+トランスフォーマー,Transformer
+トランスフォーマー,transformer
+トランスフォーマーズ,Transformers
+アテンション,Attention
+アテンション,attention
+セルフアテンション,Self-Attention
+クロスアテンション,Cross-Attention
+エンベディング,Embedding
+エンベディング,embedding
+エンベディングス,Embeddings
+トークナイザー,Tokenizer
+トークナイザー,tokenizer
+プロンプト,prompt
+プロンプト,Prompt
+プロンプトエンジニアリング,Prompt Engineering
+ラグ,RAG
+ラグ,rag
+ファインチューニング,Fine-tuning
+ファインチューニング,FineTuning
+ファインチューニング,finetuning
+プリトレーニング,Pretraining
+プリトレーニング,pretraining
+プリトレーニング,Pre-training
+アライメント,Alignment
+アライメント,alignment
+ハルシネーション,Hallucination
+ハルシネーション,hallucination
+アールエルエイチエフ,RLHF
+エスエフティー,SFT
+ディーピーオー,DPO
+ピーピーオー,PPO
+チェインオブソート,Chain of Thought
+シーオーティー,CoT
+フューショット,Few-shot
+フューショット,FewShot
+ゼロショット,Zero-shot
+ゼロショット,ZeroShot
+ワンショット,One-shot
+インコンテキストラーニング,In-context Learning
+コンテキスト,Context
+コンテキスト,context
+コンテキストウィンドウ,Context Window
+コンテキストウィンドウ,ContextWindow
+トークン,Token
+トークンズ,Tokens
+トークンズ,tokens
+インファレンス,Inference
+インファレンス,inference
+モデル,Model
+モデル,model
+ウェイト,weight
+ウェイト,Weight
+ウェイトス,weights
+パラメーター,parameter
+パラメーター,Parameter
+パラメーターズ,parameters
+ハイパーパラメーター,hyperparameter
+ハイパーパラメーター,Hyperparameter
+クオンタイゼーション,Quantization
+クオンタイゼーション,quantization
+ディスティレーション,Distillation
+ディスティレーション,distillation
+エージェント,Agent
+エージェント,agent
+エージェンティック,Agentic
+エージェンティック,agentic
+ツールユーズ,Tool Use
+ファンクションコーリング,Function Calling
+ファンクションコーリング,FunctionCalling
+
+# AI フレームワーク・ライブラリ
+テンサーフロー,TensorFlow
+テンサーフロー,tensorflow
+ジャックス,JAX
+ジャックス,jax
+ディフューザーズ,Diffusers
+ディフューザーズ,diffusers
+コントロールネット,ControlNet
+ローラ,LoRA
+ローラ,lora
+ブイエーイー,VAE
+ガン,GAN
+ウィスパー,Whisper
+ウィスパー,whisper
+トーチビジョン,torchvision
+トーチビジョン,TorchVision
+トーチオーディオ,torchaudio
+ライトニング,lightning
+パイトーチライトニング,pytorch-lightning
+パイトーチライトニング,PyTorch Lightning
+アインオプス,einops
+ティム,timm
+クリップ,CLIP
+クリップ,clip
+ブリップ,BLIP
+ブリップ,blip
+サム,SAM
+ダイノブイツー,DINOv2
+ダイノブイツー,dinov2
+センテンストランスフォーマーズ,sentence-transformers
+センテンストランスフォーマーズ,SentenceTransformers
+トークナイザーズ,tokenizers
+メガトロン,Megatron
+メガトロン,megatron
+ニーモ,NeMo
+ニーモ,nemo
+トライトン,Triton
+トライトン,triton
+スペーシー,spaCy
+スペーシー,spacy
+エヌエルティーケー,NLTK
+エヌエルティーケー,nltk
+ジェンシム,gensim
+ジェンシム,Gensim
+エックスジーブースト,XGBoost
+エックスジーブースト,xgboost
+ライトジービーエム,LightGBM
+ライトジービーエム,lightgbm
+キャットブースト,CatBoost
+キャットブースト,catboost
+ダスク,Dask
+ダスク,dask
+ナンバ,Numba
+ナンバ,numba
+レイ,Ray
+レイ,ray
+クローマディービー,chromadb
+クローマディービー,ChromaDB
+ミニコンダ,miniconda
+ミニコンダ,Miniconda
+アナコンダ,anaconda
+アナコンダ,Anaconda
+
+# ベクターDB
+ベクターデータベース,Vector Database
+ベクターディービー,VectorDB
+パインコーン,Pinecone
+パインコーン,pinecone
+ウィービエート,Weaviate
+ウィービエート,weaviate
+クローマ,Chroma
+クローマ,chroma
+キュードラント,Qdrant
+キュードラント,qdrant
+ミルバス,Milvus
+ミルバス,milvus
+フェイス,FAISS
+フェイス,faiss
+
+# AIコーディングツール
+カーサー,Cursor
+カーサー,cursor
+コパイロット,Copilot
+コパイロット,copilot
+ギットハブコパイロット,GitHub Copilot
+コーディアム,Codeium
+タブナイン,Tabnine
+コンティニュー,Continue
+エイダー,Aider
+クライン,Cline
+クロードコード,Claude Code
+クロードコード,ClaudeCode
+クロードデスクトップ,Claude Desktop
+ディフィー,Dify
+ディフィー,dify
+オートジェン,AutoGen
+クルーエーアイ,CrewAI
+レプリット,Replit
+ボルト,Bolt
+ボルト,Bolt.new
+ラブブル,Lovable
+ヴィーゼロ,v0
+ヴィーゼロ,V0
+
+# 評価系
+ベンチマーク,benchmark
+ベンチマーク,Benchmark
+エムエムエルユー,MMLU
+エイチユーエムエヴァル,HumanEval
+エスダブリューイーベンチ,SWE-Bench
+ジーエスエムエイトケー,GSM8K
+ビッグベンチ,BigBench
+
+# よく使われるAI関連略語
+エムシーピー,MCP
+エーピーアイキー,API Key
+エーピーアイキー,APIKey
+エンドポイント,endpoint
+エスディーケー,SDK
+シーリーアイ,CLI
+
+# 認証・認可
+エスエスオー,SSO
+エムエフエー,MFA
+ツーエフエー,2FA
+ニエフエー,2FA
+ティーオーティーピー,TOTP
+エイチオーティーピー,HOTP
+オーオース,OAuth
+オーオース,oauth
+オーオースツー,OAuth2
+オーオースツー,OAuth 2.0
+オープンアイディー,OpenID
+オープンアイディーコネクト,OpenID Connect
+オーアイディーシー,OIDC
+サムル,SAML
+ジェイダブリュティー,JWT
+ジョット,JWT
+ジェイダブリュエス,JWS
+ジェイダブリュイー,JWE
+エルダップ,LDAP
+ケルベロス,Kerberos
+ラディウス,RADIUS
+ベアラー,Bearer
+リフレッシュトークン,Refresh Token
+アクセストークン,Access Token
+シークレット,secret
+シークレット,Secret
+シークレッツ,secrets
+シークレッツ,Secrets
+クレデンシャル,credential
+クレデンシャル,Credential
+クレデンシャルズ,credentials
+クレデンシャルズ,Credentials
+
+# 暗号・ハッシュ
+エーイーエス,AES
+アールエスエー,RSA
+イーシーディーエスエー,ECDSA
+イーシーディーエイチ,ECDH
+ディフィーヘルマン,Diffie-Hellman
+シャー,SHA
+シャーニゴーロク,SHA-256
+シャーゴージニー,SHA-512
+エムディーファイブ,MD5
+エイチマック,HMAC
+ビークリプト,bcrypt
+ビークリプト,Bcrypt
+スクリプト,scrypt
+アルゴンツー,Argon2
+ピーケーアイ,PKI
+シーエー,CA
+シーエスアール,CSR
+サーティフィケート,certificate
+サーティフィケート,Certificate
+サーティフィケーション,certification
+ピージーピー,PGP
+ジーピージー,GPG
+エンクリプション,encryption
+エンクリプション,Encryption
+デクリプション,decryption
+エンクリプテッド,encrypted
+デクリプテッド,decrypted
+ハッシュ,hash
+ハッシュ,Hash
+ハッシング,hashing
+ソルト,salt
+ペッパー,pepper
+プレーンテキスト,plaintext
+プレーンテキスト,Plaintext
+サイファーテキスト,ciphertext
+
+# 脆弱性・攻撃
+シーダブリューイー,CWE
+クロスサイトスクリプティング,XSS
+クロスサイトリクエストフォージェリ,CSRF
+シーエスアールエフ,CSRF
+エスキューエルインジェクション,SQL Injection
+エスキューエルインジェクション,SQLInjection
+コマンドインジェクション,Command Injection
+ディーオーエス,DoS
+ディーディーオーエス,DDoS
+エムアイティーエム,MITM
+マンインザミドル,Man-in-the-Middle
+フィッシング,Phishing
+フィッシング,phishing
+スプーフィング,Spoofing
+ブルートフォース,Brute Force
+ブルートフォース,BruteForce
+リプレイアタック,Replay Attack
+ゼロデイ,Zero-day
+ゼロデイ,zero-day
+バックドア,Backdoor
+バックドア,backdoor
+トロイ,Trojan
+ワーム,Worm
+ランサムウェア,Ransomware
+ランサムウェア,ransomware
+マルウェア,Malware
+マルウェア,malware
+スパイウェア,Spyware
+ルートキット,Rootkit
+キーロガー,Keylogger
+バルネラビリティ,Vulnerability
+バルネラビリティ,vulnerability
+エクスプロイト,Exploit
+エクスプロイト,exploit
+スレット,Threat
+スレット,threat
+リスク,Risk
+リスク,risk
+ミティゲーション,Mitigation
+ハードニング,Hardening
+ペンテスト,Pentest
+ペネトレーションテスト,Penetration Test
+シーブイエスエス,CVSS
+
+# Web / ドメイン・証明書
+エフキューディーエヌ,FQDN
+ティーエルディー,TLD
+サブドメイン,subdomain
+レッツエンクリプト,Let's Encrypt
+レッツエンクリプト,LetsEncrypt
+サートボット,Certbot
+エーシーエムイー,ACME
+ワイルドカード証明書,wildcard certificate
+
+# HTTP プロトコル
+エイチティーティーピーツー,HTTP/2
+エイチティーティーピースリー,HTTP/3
+ウェブアールティーシー,WebRTC
+ジーアールピーシー,gRPC
+グラフキューエル,GraphQL
+オープンエーピーアイ,OpenAPI
+スワッガー,Swagger
+ポストマン,Postman
+マイム,MIME
+ベースロクジュウヨン,Base64
+ピーケーシーイー,PKCE
+
+# フロントエンド用語
+ドム,DOM
+アイフレーム,iframe
+ウェブアセンブリ,WebAssembly
+ワズム,Wasm
+サービスワーカー,Service Worker
+サービスワーカー,ServiceWorker
+ピーダブリューエー,PWA
+エスピーエー,SPA
+エスエスアール,SSR
+エスエスジー,SSG
+シーエスアール,CSR
+エスイーオー,SEO
+オージーピー,OGP
+
+# フロントエンドフレームワーク
+ジャバスクリプト,JavaScript
+ジャバスクリプト,javascript
+ジェイエス,JS
+タイプスクリプト,TypeScript
+タイプスクリプト,typescript
+ティーエス,TS
+リアクト,React
+リアクト,react
+ビュー,Vue
+ビュー,vue
+アンギュラー,Angular
+アンギュラー,angular
+ネクストジェーエス,Next.js
+ネクストジェーエス,Nextjs
+ヌクスト,Nuxt
+ヌクスト,nuxt
+スベルト,Svelte
+スベルト,svelte
+アストロ,Astro
+アストロ,astro
+ビュート,Vite
+ビュート,vite
+ビュー,Vue.js
+
+# ネットワークセキュリティ
+ワフ,WAF
+アイディーエス,IDS
+アイピーエス,IPS
+ブイピーエヌ,VPN
+ディーエムゼット,DMZ
+ナット,NAT
+リバースプロキシ,Reverse Proxy
+リバースプロキシ,ReverseProxy
+サブネット,subnet
+サブネット,Subnet
+エムティーエルエス,mTLS
+エムティーエルエス,MTLS
+エイチエスティーエス,HSTS
+シーオーアールエス,CORS
+シーエスピー,CSP
+
+# コンプライアンス・標準
+ジーディーピーアール,GDPR
+シーシーピーエー,CCPA
+ヒッパー,HIPAA
+ピーシーアイディーエスエス,PCI DSS
+ピーシーアイディーエスエス,PCIDSS
+エスオーシーツー,SOC 2
+エスオーシーツー,SOC2
+アイエスオーニーマンナナセン,ISO 27001
+アイエスオーニーマンナナセン,ISO27001
+ニスト,NIST
+オワスプ,OWASP
+
+# アクセス制御・ガバナンス
+アールバック,RBAC
+エーバック,ABAC
+プリンシパル,Principal
+プリビレッジ,privilege
+プリビレッジ,Privilege
+リーストプリビレッジ,Least Privilege
+ゼロトラスト,Zero Trust
+ゼロトラスト,ZeroTrust
+オーディット,audit
+オーディット,Audit
+オーディットログ,Audit Log
+コンプライアンス,Compliance
+コンプライアンス,compliance
+ガバナンス,Governance
+ガバナンス,governance
+パーミッション,permission
+パーミッション,Permission
+パーミッションズ,permissions
+
+# Secrets管理ツール
+ハシコープボールト,HashiCorp Vault
+ハシコープボールト,Hashicorp Vault
+
+# 設定・環境
+デフォルト,default
+デフォルト,Default
+コンフィグ,config
+コンフィグ,Config
+コンフィグレーション,configuration
+コンフィグレーション,Configuration
+セッティング,setting
+セッティングス,settings
+セッティングス,Settings
+エンブ,env
+エンビロンメント,environment
+エンビロンメント,Environment
+プロダクション,production
+プロダクション,Production
+プロダクション,prod
+プロダクション,Prod
+ステージング,staging
+ステージング,Staging
+ステージング,stg
+ステージング,STG
+デベロップメント,development
+デベロップメント,Development
+デブ,dev
+デブ,Dev
+テスト,test
+テスト,Test
+テスト,TEST
+ローカル,local
+ローカル,Local
+
+# プロフィール・アカウント関連
+プロファイル,profile
+プロファイル,Profile
+プロファイルズ,profiles
+プロファイルズ,Profiles
+ユーザーズ,users
+ユーザーズ,Users
+アドミンズ,admins
+アドミン,admin
+メンバーズ,members
+ゲスツ,guests
+アカウンツ,accounts
+
+# 電話・通信関連
+エーシーエス,ACS
+エスビーシー,SBC
+ピービーエックス,PBX
+シップ,SIP
+アールティーピー,RTP
+アイブイアール,IVR
+ピーエスティーエヌ,PSTN
+アスタリスク,Asterisk
+フリーピービーエックス,FreePBX
+
+# AI/LLM関連
+フューショット,few-shot
+
+# 検索・データベース関連
+ビーエムニジュウゴ,BM25
+アイディーエフ,IDF
+ユーリッド,ULID
+
+# ビジネス・業務関連
+エーシーダブリュー,ACW
+ブイオーシー,VOC
+エスケーユー,SKU
+エルジーワン,LGWAN
+
+# 音声・データ関連
+エスエスイー,SSE
+ピーシーエム,PCM
+エスエスエムエル,SSML
+ウェブソケット,WebSocket
+
+# 開発・技術全般
+エルエックスシー,LXC
+プロクスモックス,Proxmox
+エヌグロック,ngrok
+
+# GPU・ドライバー
+エヌビディア,nvidia
+エヌビディア,NVIDIA
+エヌビディアエスエムアイ,nvidia-smi
+ブイラム,vram
+クーダ,cuda
+ワイン,wine
+ワイン,Wine
+
+# Python Webフレームワーク
+フラスク,flask
+フラスク,Flask
+ジャンゴ,django
+ジャンゴ,Django
+トルネード,tornado
+トルネード,Tornado
+スターレット,starlette
+スターレット,Starlette
+サニック,sanic
+サニック,Sanic
+
+# Python テスト・品質管理
+パイテスト,pytest
+パイテスト,Pytest
+ユニットテスト,unittest
+マイピー,mypy
+ブラック,black
+フレークエイト,flake8
+アイソート,isort
+パイリント,pylint
+ラフ,ruff
+
+# Python パッケージ管理
+ポエトリー,poetry
+ポエトリー,Poetry
+セットアップツールズ,setuptools
+ホイール,wheel
+ユーブイ,uv
+
+# Python 非同期・HTTP
+アシンクアイオー,asyncio
+エーアイオーエイチティーティーピー,aiohttp
+エイチティーティーピーエックス,httpx
+ウェブソケッツ,websockets
+リクエスツ,requests
+
+# Python データ・可視化
+マットプロットリブ,matplotlib
+シーボーン,seaborn
+プロットリー,plotly
+ストリームリット,streamlit
+ストリームリット,Streamlit
+ピロー,Pillow
+ピロー,pillow
+ピーアイエル,PIL
+オープンシーブイ,opencv
+オープンシーブイ,OpenCV
+シーブイツー,cv2
+
+# Python ML追加
+アクセラレート,accelerate
+データセッツ,datasets
+ティックトークン,tiktoken
+トランスフォーマーズ,transformers
+
+# Python DB
+エスキューエルアルケミー,SQLAlchemy
+エスキューエルアルケミー,sqlalchemy
+アレンビック,alembic
+サイコピージー,psycopg2
+パイマイエスキューエル,pymysql
+パイモンゴ,pymongo
+
+# Python ユーティリティ
+ティークイーディーエム,tqdm
+クリック,click
+クリック,Click
+リッチ,rich
+リッチ,Rich
+パイダンティック,pydantic
+パイダンティック,Pydantic
+ロギュール,loguru
+タイパー,typer
+タイパー,Typer
+ドットエンブ,python-dotenv
+セロリ,celery
+セロリ,Celery
+パラミコ,paramiko
+パラミコ,Paramiko
+ファブリック,fabric
+ファブリック,Fabric
+アンシブル,ansible
+アンシブル,Ansible
+
+# Ruby
+ウェブリック,WEBrick
+ウェブリック,webrick
+レイルズ,Rails
+レイルズ,rails
+シナトラ,Sinatra
+シナトラ,sinatra
+アールスペック,RSpec
+アールスペック,rspec
+ルボコップ,RuboCop
+ルボコップ,rubocop
+サイドキック,Sidekiq
+サイドキック,sidekiq
+ピューマ,Puma
+ピューマ,puma
+ノコギリ,Nokogiri
+ノコギリ,nokogiri
+デバイズ,Devise
+デバイズ,devise
+カピバラ,Capybara
+カピバラ,capybara
+ミニテスト,minitest
+ミニテスト,Minitest
+ラック,Rack
+ラック,rack
+ジェム,gem
+レイク,rake
+レイク,Rake
+アールビーエンブ,rbenv
+アールブイエム,rvm
+
+# JS/TS エコシステム
+エクスプレス,Express
+エクスプレス,express
+ヤーン,yarn
+ヤーン,Yarn
+ピーエヌピーエム,pnpm
+イーエスリント,eslint
+イーエスリント,ESLint
+プリティアー,prettier
+プリティアー,Prettier
+バベル,babel
+バベル,Babel
+ジェスト,jest
+ジェスト,Jest
+モカ,mocha
+チャイ,chai
+サイプレス,cypress
+サイプレス,Cypress
+プレイライト,playwright
+プレイライト,Playwright
+パペティアー,puppeteer
+パペティアー,Puppeteer
+ストーリーブック,Storybook
+テイルウィンド,Tailwind
+テイルウィンドシーエスエス,TailwindCSS
+ブートストラップ,Bootstrap
+ブートストラップ,bootstrap
+サス,Sass
+サス,sass
+エスシーエスエス,SCSS
+エスシーエスエス,scss
+
+# Python/MLライブラリ
+パイトーチ,torch
+ファスターウィスパー,faster-whisper
+サイパイ,scipy
+サイキットラーン,scikit-learn
+サイキットラーン,sklearn
+ペフト,peft
+オーエヌエヌエックス,ONNX
+オーエヌエヌエックス,onnx
+テンサーアールティー,TensorRT
+テンサーアールティー,tensorrt
+パイアノート,pyannote
+シートランスレートツー,ctranslate2
+セーフテンソルズ,safetensors
+セーフテンソル,safetensor
+ビッツアンドバイツ,bitsandbytes
+ディープスピード,DeepSpeed
+ディープスピード,deepspeed
+ワンドビー,wandb
+エムエルフロー,MLflow
+エムエルフロー,mlflow
+オプチューナ,Optuna
+オプチューナ,optuna
+ポーラーズ,Polars
+ポーラーズ,polars
+パイアロー,pyarrow
+ブイエンブ,venv
+ジュピター,Jupyter
+ジュピターラブ,JupyterLab
+コーラブ,Colab
+パイピーアイ,PyPI
+# ML概念
+エポック,epoch
+エポック,Epoch
+グラジエント,gradient
+ドロップアウト,dropout
+レルー,ReLU
+レルー,relu
+ソフトマックス,softmax
+エンコーダー,encoder
+デコーダー,decoder
+バート,BERT
+バート,bert
+ジェマ,Gemma
+ジェマ,gemma
+ファイ,Phi
+# サーバ・インフラ
+エンジンエックス,nginx
+エンジンエックス,Nginx
+エンジンエックス,NGINX
+アパッチ,Apache
+アパッチ,apache
+グニコーン,gunicorn
+グニコーン,Gunicorn
+
+# メタバース関連プラットフォーム
+フォートナイト,Fortnite
+フォートナイト,FORTNITE
+ゼペット,ZEPETO
+ゼップ,ZEP
+ブイアールチャット,VRChat
+ロブロックス,Roblox
+
+# ゲームエンジン
+ユニティ,Unity
+アンリアルエンジン,Unreal Engine
+アンリアルエンジン,UnrealEngine
+ユーイー,UE
+ゴドー,Godot
+
+# Unity 固有用語
+ゲームオブジェクト,GameObject
+プレファブ,Prefab
+プレファブ,prefab
+シーン,Scene
+シーン,scene
+ヒエラルキー,Hierarchy
+インスペクター,Inspector
+シェーダー,Shader
+シェーダー,shader
+レンダラー,Renderer
+リジッドボディ,Rigidbody
+コライダー,Collider
+アニメーター,Animator
+アニメーションクリップ,AnimationClip
+アニメーションクリップ,Animation Clip
+スクリプタブルオブジェクト,ScriptableObject
+ユーアールピー,URP
+エイチディーアールピー,HDRP
+アセットストア,Asset Store
+パッケージマネージャー,Package Manager
+エーアールファウンデーション,AR Foundation
+
+# Unreal Engine 固有用語
+ナナイト,Nanite
+ルーメン,Lumen
+ニアガラ,Niagara
+シーケンサー,Sequencer
+メタヒューマン,MetaHuman
+メタヒューマン,Metahuman
+ユーイーファイブ,UE5
+ユーイーフォー,UE4
+ユーイーエフエヌ,UEFN
+エピックゲームズ,Epic Games
+ファブ,Fab
+
+# ゲーム開発共通用語
+メッシュ,Mesh
+メッシュ,mesh
+テクスチャ,Texture
+テクスチャ,texture
+マテリアル,Material
+マテリアル,material
+ユーブイ,UV
+リギング,Rigging
+リギング,rigging
+スキニング,Skinning
+スキニング,skinning
+エルオーディー,LOD
+ピービーアール,PBR
+ノーマルマップ,Normal Map
+ノーマルマップ,NormalMap
+スケルタルメッシュ,Skeletal Mesh
+スケルタルメッシュ,SkeletalMesh
+スタティックメッシュ,Static Mesh
+スタティックメッシュ,StaticMesh
+ビヘイビアツリー,Behavior Tree
+ビヘイビアツリー,BehaviorTree
+ナブメッシュ,NavMesh
+アイケー,IK
+エフケー,FK
+エフビーエックス,FBX
+エーピーケー,APK
+ブイアール,VR
+エーアール,AR
+エムアール,MR
+キャラクタークリエーター,Character Creator
+シーシーフォー,CC4
+
+# 汎用英語技術用語
+## サービスレベル・プラン種別
+オース,auth
+アンリミテッド,unlimited
+フリー,free
+プレミアム,premium
+プロ,pro
+ベーシック,basic
+スタンダード,standard
+エンタープライズ,enterprise
+プラン,plan
+トライアル,trial
+デモ,demo
+ベータ,beta
+アルファ,alpha
+ステーブル,stable
+レイテスト,latest
+バージョン,version
+アップグレード,upgrade
+ダウングレード,downgrade
+
+## 基本操作・状態
+チェック,check
+リセット,reset
+リフレッシュ,refresh
+フック,hook
+ロード,load
+バランス,balance
+ヘルス,health
+アラート,alert
+アクション,action
+ステージ,stage
+ステップ,step
+タスク,task
+フォールバック,fallback
+スロットル,throttle
+クォータ,quota
+アクセス,access
+オリジン,origin
+リバース,reverse
+
+## インフラ・アーキテクチャ
+マスター,master
+プライマリ,primary
+セカンダリ,secondary
+レプリカ,replica
+バケット,bucket
+プール,pool
+メモリ,memory
+
+## データ構造・プリミティブ型
+オブジェクト,object
+リスト,list
+アレイ,array
+マップ,map
+ツリー,tree
+グラフ,graph
+ヒープ,heap
+キー,key
+バリュー,value
+ペア,pair
+ストリング,string
+ブーリアン,boolean
+インテジャー,integer
+フロート,float
+イーナム,enum
+ジェネリック,generic
+オプショナル,optional
+
+## UI・フロントエンド
+ヘッダー,header
+フッター,footer
+モーダル,modal
+ダイアログ,dialog
+ドロワー,drawer
+サイドバー,sidebar
+ナブバー,navbar
+バッジ,badge
+ボタン,button
+リンク,link
+アイコン,icon
+イメージ,image
+カード,card
+グリッド,grid
+フレックス,flex
+ギャップ,gap
+マージン,margin
+パディング,padding
+ボーダー,border
+シャドウ,shadow
+カラー,color
+フォント,font
+
+## プログラミング一般
+エクステンション,extension
+アドオン,addon
+テーマ,theme
+プラットフォーム,platform
+インテグレーション,integration
+コネクター,connector
+アダプター,adapter
+ブリッジ,bridge
+メソッド,method
+クラス,class
+コンスタント,constant
+アーギュメント,argument
+リターン,return
+インポート,import
+タグ,tag
+アトリビュート,attribute
+プロパティ,property
+
+# Webセキュリティ・HTTPヘッダ用語
+エスビーピーエス,SBPS
+シーディーエヌ,CDN
+ザップ,ZAP
+クリックジャッキング,clickjacking
+クリックジャッキング,Clickjacking
+インライン,inline
+スニフ,sniff
+ノースニフ,nosniff
+リファラー,Referrer
+リファラーポリシー,Referrer-Policy
+エックスフレームオプションズ,X-Frame-Options
+エックスコンテントタイプオプションズ,X-Content-Type-Options
+パーミッションズポリシー,Permissions-Policy
+クロスオリジンリソースポリシー,Cross-Origin-Resource-Policy
+クロスオリジンリソースポリシー,CORP
+ハードニング,hardening
+
+# ネットワーク・プロキシ・セキュリティ関連語彙
+## ネットワーク基礎
+リモート,remote
+ループバック,loopback
+シーアイディーアール,CIDR
+オーワスプ,OWASP
+ダブリューエーエフ,WAF
+ボットネット,botnet
+
+## 認証・暗号
+ジェーダブリューティー,JWT
+オーアイディーシー,OIDC
+エスエヌアイ,SNI
+
+## アプリケーション処理
+セッション,session
+インジェクション,injection
+サニタイズ,sanitize
+エスケープ,escape
+エスケープ,Escape
+エンコード,encode
+エンコード,Encode
+デコード,decode
+デコード,Decode
+
+## リスト管理
+ホワイトリスト,whitelist
+ホワイトリスト,Whitelist
+ブラックリスト,blacklist
+ブラックリスト,Blacklist
+アローリスト,allowlist
+アローリスト,Allowlist
+ブロックリスト,blocklist
+ブロックリスト,Blocklist
+デナイリスト,denylist
+デナイリスト,Denylist
+
+## nginx・プロキシ設定
+バーチャルホスト,virtual host
+バーチャルホスト,VirtualHost
+ブイホスト,vhost
+ロケーション,location
+
+## レート制限・スロットリング
+レートリミット,rate limit
+レートリミット,rate limiting
+レートリミット,rate-limiting
+
+# 接頭辞・その他補足
+アンチ,anti
+アンチ,Anti
+
+# C言語・C++
+シープラスプラス,C++
+ジーシーシー,gcc
+ジーシーシー,GCC
+クラン,clang
+クラン,Clang
+シーメイク,CMake
+シーメイク,cmake
+メイクファイル,Makefile
+メイクファイル,makefile
+リンカー,linker
+リンカー,Linker
+ポインター,pointer
+ポインター,Pointer
+ヌルポインタ,nullptr
+ヌルポインタ,NULL pointer
+デリファレンス,dereference
+キャスト,cast
+マロック,malloc
+フリー,free
+サイズオブ,sizeof
+タイプデフ,typedef
+インクルード,include
+ディファイン,define
+プリプロセッサ,preprocessor
+マクロ,macro
+スキャンエフ,scanf
+セグメンテーションフォルト,segfault
+セグメンテーションフォルト,segmentation fault
+バッファオーバーフロー,buffer overflow
+スタックオーバーフロー,stack overflow
+
+# C#・.NET
+シーシャープ,C#
+ドットネット,.NET
+ドットネットコア,.NET Core
+エーエスピードットネット,ASP.NET
+ブレイザー,Blazor
+ブレイザー,blazor
+リンク,LINQ
+ニューゲット,NuGet
+ニューゲット,nuget
+エンティティフレームワーク,Entity Framework
+エンティティフレームワーク,EntityFramework
+エムブイシー,MVC
+ディーティーオー,DTO
+コンストラクタ,constructor
+デストラクタ,destructor
+デリゲート,delegate
+デリゲート,Delegate
+オーバーライド,override
+オーバーライド,Override
+オーバーロード,overload
+オーバーロード,Overload
+ゲッター,getter
+セッター,setter
+ナラブル,nullable
+ナラブル,Nullable
+
+# PHP
+ピーエイチピー,PHP
+ララベル,Laravel
+ララベル,laravel
+コンポーザー,Composer
+コンポーザー,composer
+アーティザン,Artisan
+アーティザン,artisan
+エロクエント,Eloquent
+エロクエント,eloquent
+ブレイド,Blade
+ブレイド,blade
+シンフォニー,Symfony
+シンフォニー,symfony
+ピーエイチピーユニット,PHPUnit
+ピーエイチピースタン,PHPStan
+
+# JavaScript・TypeScript
+ノードジェーエス,Node.js
+ノードジェーエス,NodeJS
+ノードジェーエス,nodejs
+ディーノ,Deno
+ディーノ,deno
+バン,Bun
+バン,bun
+クロージャ,closure
+クロージャ,Closure
+プロトタイプ,prototype
+プロトタイプ,Prototype
+ホイスティング,hoisting
+イベントループ,event loop
+イベントループ,EventLoop
+プロミス,Promise
+プロミス,promise
+アウェイト,await
+ネストジェーエス,NestJS
+ネストジェーエス,nestjs
+ファスティファイ,Fastify
+ファスティファイ,fastify
+ロールアップ,Rollup
+ロールアップ,rollup
+ローダッシュ,lodash
+アクシオス,axios
+アクシオス,Axios
+リダックス,Redux
+リダックス,redux
+アポロ,Apollo
+シークエライズ,Sequelize
+シークエライズ,sequelize
+マングース,Mongoose
+マングース,mongoose
+ブイユーエックス,Vuex
+ブイユーエックス,vuex
+ピニア,Pinia
+ピニア,pinia
+
+# Ruby
+ルビー,Ruby
+ルビー,ruby
+ルビーオンレールズ,Ruby on Rails
+# Ruby キーワード/よく出る語 (2026-07 追加。読みは調整可。module は上部で登録済み)
+リクワイア,require
+リクワイアリレイティブ,require_relative
+デフ,def
+エンド,end
+ニル,nil
+プッツ,puts
+セルフ,self
+イールド,yield
+パラムス,params
+アトリビュートアクセサー,attr_accessor
+レールズ,Rails
+レールズ,rails
+レイク,rake
+アールビーエンブイ,rbenv
+アールブイエム,RVM
+アイアールビー,IRB
+プライ,Pry
+プライ,pry
+キャピバラ,Capybara
+キャピバラ,capybara
+アクティブレコード,ActiveRecord
+アクティブレコード,active_record
+ミニテスト,Minitest
+ミニテスト,minitest
+ピューマ,Puma
+ピューマ,puma
+ユニコーン,Unicorn
+ユニコーン,unicorn
+シデキック,Sidekiq
+シデキック,sidekiq
+
+# Python
+パイソン,Python
+パイソン,python
+バーチャルエンブイ,venv
+バーチャルエンブイ,virtualenv
+パイエンブイ,pyenv
+スクレイピー,Scrapy
+スクレイピー,scrapy
+ビューティフルスープ,BeautifulSoup
+ビューティフルスープ,beautifulsoup
+リクエスツ,requests
+
+# Rust
+ラスト,Rust
+ラスト,rust
+カーゴ,cargo
+カーゴ,Cargo
+クレート,crate
+クレート,Crate
+トレイト,trait
+トレイト,Trait
+ボローチェッカー,borrow checker
+オーナーシップ,ownership
+ライフタイム,lifetime
+ラストアップ,rustup
+ラストシー,rustc
+クリッピー,Clippy
+クリッピー,clippy
+トキオ,Tokio
+トキオ,tokio
+アクティックスウェブ,actix-web
+アクティックスウェブ,Actix-web
+
+# Go言語
+ゴーラング,Golang
+ゴーラング,golang
+ゴルーチン,goroutine
+ゴルーチン,Goroutine
+チャネル,channel
+ゴーモジュール,go mod
+ゴーフォーマット,gofmt
+ジン,Gin
+ジン,gin
+ゴーファイバー,Fiber
+ゴーファイバー,fiber
+
+# Linux・パッケージ管理・システム管理
+ジャーナルシーティーエル,journalctl
+ユーエフダブリュー,UFW
+ユーエフダブリュー,ufw
+エスイーリナックス,SELinux
+アップアーマー,AppArmor
+アップアーマー,apparmor
+ネットプラン,Netplan
+ネットプラン,netplan
+エヌエムシーエルアイ,nmcli
+ホストネームシーティーエル,hostnamectl
+タイムデートシーティーエル,timedatectl
+ビルドエッセンシャル,build-essential
+エルエスオーエフ,lsof
+ストレース,strace
+ティーシーピーダンプ,tcpdump
+エーピーティーゲット,apt-get
+ディーピーケージー,dpkg
+スナップディー,snapd
+フラットパック,Flatpak
+フラットパック,flatpak
+
+# Linuxカーネル・コンテナ低レベル技術
+シーグループ,cgroup
+シーグループ,cgroups
+シーグループ,CGroup
+オーバーレイエフエス,overlayfs
+オーバーレイエフエス,OverlayFS
+ユニオンエフエス,unionfs
+ユニオンエフエス,UnionFS
+ランシー,runc
+コンテイナーディー,containerd
+エヌエスエンター,nsenter
+ユニシェア,unshare
+ピッドネームスペース,PID namespace
+マウントネームスペース,mount namespace
+ネットワークネームスペース,network namespace
+デバイスマッパー,device mapper
+デバイスマッパー,DeviceMapper
+ブイイーティーエイチ,veth
+ブリッジネットワーク,bridge network
+イーピーティーエー,EPTA
+スクレイプ,seccomp
+エスイーシーシーオーエムピー,seccomp
+エービーピーアーマー,AppArmor
+ケーエスエム,KSM
+ヒュージページ,hugepages
+ヒュージページ,HugePages
+シスシーティーエル,sysctl
+シスエフエス,sysfs
+プロセスエフエス,procfs
+プロセスエフエス,proc
+
+# プロビジョニング・IaC
+プロビジョニング,provisioning
+プロビジョン,provision
+インフラ,infra
+インフラストラクチャ,infrastructure
+テラフォーム,Terraform
+テラフォーム,terraform
+シェフ,Chef
+パペット,Puppet
+パペット,puppet
+ソルトスタック,SaltStack
+ソルトスタック,saltstack
+バグラント,Vagrant
+バグラント,vagrant
+パッカー,Packer
+クラウドイニット,cloud-init
+プレイブック,playbook
+プレイブック,Playbook
+インベントリ,inventory
+インベントリ,Inventory
+イミュータブル,immutable
+アイデンポテント,idempotent
+
+# SSH関連
+エスエスエイチディー,sshd
+エスエスエイチキーゲン,ssh-keygen
+エスエスエイチエージェント,ssh-agent
+エスエスエイチコピーアイディー,ssh-copy-id
+
+# Docker補足
+レジストリ,registry
+レジストリ,Registry
+ボリューム,volume
+ボリューム,Volume
+エントリポイント,entrypoint
+エントリポイント,ENTRYPOINT
+マルチステージビルド,multi-stage build
+
+# Kubernetes補足
+トレフィク,Traefik
+トレフィク,traefik
+
+# プロセス・ファイルシステム・シグナル
+ピッドファイル,pidfile
+ピッドファイル,PIDFile
+ピッド,pid
+ピッド,PID
+ロックファイル,lockfile
+ロックファイル,lock file
+ソケットファイル,socket file
+ユニットファイル,unit file
+サービスファイル,service file
+コンフィグファイル,config file
+ランファイル,runfile
+ランディレクトリ,run directory
+マウントポイント,mount point
+マウントポイント,mountpoint
+スワップ,swap
+スワップファイル,swapfile
+スワップファイル,swap file
+フォアグラウンド,foreground
+バックグラウンド,background
+デタッチ,detach
+リロード,reload
+リスタート,restart
+シグナル,signal
+シグキル,SIGKILL
+シグターム,SIGTERM
+シグハップ,SIGHUP
+シグイント,SIGINT
+
+# プロセス優先度・スケジューリング
+ナイス,nice
+リナイス,renice
+プライオリティ,priority
+スケジューラ,scheduler
+コンテキストスイッチ,context switch
+コンテキストスイッチ,context switching
+プリエンプション,preemption
+スレッドアフィニティ,thread affinity
+コアアフィニティ,core affinity
+タスクセット,taskset
+アイオーナイス,ionice
+シーエフエス,CFS
+ロードアベレージ,load average
+アップタイム,uptime
+イオートップ,iotop
+ニューマ,NUMA
+
+# カーネルトレース・デバッグ
+イービーピーエフ,eBPF
+イービーピーエフ,ebpf
+ビーピーエフ,BPF
+ペルフ,perf
+フトレース,ftrace
+
+# 汎用プログラミング動詞
+アッド,add
+アッド,Add
+リード,read
+ライト,write
+ゲット,get
+ゲット,Get
+プット,put
+ポスト,post
+サーチ,search
+サーチ,Search
+フィルター,filter
+フィルター,Filter
+リデュース,reduce
+フォーイーチ,foreach
+フォーイーチ,forEach
+コレクト,collect
+コンバート,convert
+バリデート,validate
+スプリット,split
+コピー,copy
+ムーブ,move
+リネーム,rename
+イグジスト,exist
+コンテイン,contain
+イクスクルード,exclude
+ストップ,stop
+ストップ,Stop
+
+# DB補足
+ポストグレス,Postgres
+ポストグレス,postgres
+エスキューライト,SQLite
+エスキューライト,sqlite
+メムキャッシュド,Memcached
+メムキャッシュド,memcached
+カサンドラ,Cassandra
+カサンドラ,cassandra
+ファイヤーストア,Firestore
+ファイヤーストア,firestore
+コズモスディービー,CosmosDB
+コズモスディービー,Cosmos DB
+プライマリーキー,primary key
+サブクエリ,subquery
+アグリゲート,aggregate
+シーディング,seeding
+
+# EC・決済
+パーチェス,purchase
+パーチェス,Purchase
+オーダー,order
+オーダー,Order
+カート,cart
+ペイメント,payment
+ペイメント,Payment
+インボイス,invoice
+レシート,receipt
+リファンド,refund
+デポジット,deposit
+ウォレット,wallet
+プライス,price
+コスト,cost
+
+# スケーリング・可用性・デプロイ戦略
+オートスケール,autoscale
+オートスケール,auto scale
+オートスケーリング,autoscaling
+オートスケーリング,auto scaling
+スケールアウト,scale out
+スケールアウト,scale-out
+スケールイン,scale in
+スケールイン,scale-in
+スケールアップ,scale up
+スケールアップ,scale-up
+スケールダウン,scale down
+スケールダウン,scale-down
+ロードバランシング,load balancing
+スティッキーセッション,sticky session
+ラウンドロビン,round robin
+ブルーグリーンデプロイ,blue-green deploy
+ブルーグリーンデプロイ,blue green deployment
+カナリアリリース,canary release
+カナリアリリース,canary deploy
+ローリングアップデート,rolling update
+ゼロダウンタイム,zero downtime
+フェイルオーバー,failover
+フォールトトレランス,fault tolerance
+ハイアベイラビリティ,high availability
+ハイアベイラビリティ,HA
+ディザスタリカバリ,disaster recovery
+ディザスタリカバリ,DR
+
+# プログラミング言語キーワード (C#/C++/JS/Python/共通。2026-07 追加・読みは調整可。
+# null/string/class/import 等はこのファイル上部で登録済みのため除外)
+ボイド,void
+イント,int
+ブール,bool
+チャー,char
+ダブル,double
+ストラクト,struct
+アーグス,args
+エリフ,elif
+プリント,print
+ディクト,dict
+クワーグス,kwargs
+コンスト,const
+レット,let
+コンソール,console
+ドキュメント,document
+アンディファインド,undefined
+タイプオブ,typeof
+ユージング,using
+シーアウト,cout
+シーイン,cin
+タイプネーム,typename
+ベクター,vector
+エスティーディー,std

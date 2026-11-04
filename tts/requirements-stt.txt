@@ -1,0 +1,16 @@
+# STT用パッケージ（stt.py, mic_stt.pyで使用）
+# インストール: pip install -r requirements-stt.txt
+#
+# 注意: PyTorchは別途CUDAバージョンを指定してインストールすること
+#   pip install torch==2.3.1+cu121 torchaudio==2.3.1+cu121 --index-url https://download.pytorch.org/whl/cu121
+
+# 文字起こし
+faster-whisper
+nvidia-cublas-cu12
+pyannote.audio==3.4.0
+tqdm
+
+# マイク入力（mic_stt.py）/ クリップボードTTS（clip_tts.py）
+sounddevice
+pyperclip
+keyboard

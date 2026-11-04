@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# clip_tts ランチャー (cross-platform)。どのディレクトリからでも実行できる。
+# ~/.local/bin にシンボリックリンクを張って使う想定 (readlink -f で実体を解決)。
+#
+# clip_tts.py は自分で SBV2 venv に再実行する仕組みを持つ:
+#   - 既定(-v sbv2)          → venv に入って torch/Style-Bert-VITS2 をロード
+#   - Irodori(-v calm/bright) → torch 不要なので system python3 のまま動く
+# よってここでは system python3 を優先で渡す (venv は clip_tts.py 側が探す)。
+set -euo pipefail
+SELF="$(readlink -f "${BASH_SOURCE[0]}" 2>/dev/null || echo "${BASH_SOURCE[0]}")"
+TTS_DIR="$(cd "$(dirname "$SELF")/.." && pwd)"
+
+pick_py() {
+  # 明示指定 > system python3/python > SBV2 venv (最後の砦)
+  local c
+  if [ -n "${SBV2_VENV_PYTHON:-}" ] && [ -x "${SBV2_VENV_PYTHON}" ]; then
+    printf '%s\n' "${SBV2_VENV_PYTHON}"; return
+  fi
+  for c in python3 python; do
+    command -v "$c" >/dev/null 2>&1 && { command -v "$c"; return; }
+  done
+  for c in "$HOME/tts/Style-Bert-VITS2/venv/bin/python" \
+           "/c/tmp/sbv2_venv/Scripts/python.exe"; do
+    [ -x "$c" ] && { printf '%s\n' "$c"; return; }
+  done
+}
+PY="$(pick_py)"
+[ -n "$PY" ] || { echo "python が見つかりません" >&2; exit 1; }
+exec "$PY" "$TTS_DIR/clip_tts.py" "$@"

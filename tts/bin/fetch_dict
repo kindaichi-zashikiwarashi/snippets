@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# fetch_dict ランチャー (cross-platform)。どのディレクトリからでも実行できる。
+# ~/.local/bin にシンボリックリンクを張って使う想定 (readlink -f で実体を解決)。
+# fetch_dict.py は SBV2 venv (torch / style_bert_vits2 / alkana 等) を要するため venv を優先。
+set -euo pipefail
+SELF="$(readlink -f "${BASH_SOURCE[0]}" 2>/dev/null || echo "${BASH_SOURCE[0]}")"
+TTS_DIR="$(cd "$(dirname "$SELF")/.." && pwd)"
+
+pick_py() {
+  # 明示指定 > SBV2 venv(Linux) > SBV2 venv(Windows) > system python
+  local c
+  for c in "${SBV2_VENV_PYTHON:-}" \
+           "$HOME/tts/Style-Bert-VITS2/venv/bin/python" \
+           "/c/tmp/sbv2_venv/Scripts/python.exe"; do
+    [ -n "$c" ] && [ -x "$c" ] && { printf '%s\n' "$c"; return; }
+  done
+  command -v python3 2>/dev/null || command -v python 2>/dev/null
+}
+PY="$(pick_py)"
+[ -n "$PY" ] || { echo "python が見つかりません" >&2; exit 1; }
+exec "$PY" "$TTS_DIR/fetch_dict.py" "$@"

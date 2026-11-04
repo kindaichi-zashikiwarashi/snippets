@@ -1,0 +1,1 @@
+@powershell -Command "Add-Type '[DllImport(\"user32.dll\")]public static extern void keybd_event(byte v,byte s,uint f,System.IntPtr e);' -Name K -Namespace W;[W.K]::keybd_event(0xA4,0x38,2,[System.IntPtr]::Zero);[W.K]::keybd_event(0x12,0x38,2,[System.IntPtr]::Zero);[W.K]::keybd_event(0xA5,0x38,2,[System.IntPtr]::Zero)"

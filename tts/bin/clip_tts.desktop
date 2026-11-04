@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=clip_tts (読み上げ常駐)
+Comment=クリップボード読み上げを常駐起動。Ctrl+Alt+P で再生 / Ctrl+Alt+S で停止
+Exec=/PATH/TO/snippets/tts/bin/clip_tts_daemon.sh calm
+Icon=audio-headphones
+Terminal=false
+Categories=Utility;
+StartupNotify=false

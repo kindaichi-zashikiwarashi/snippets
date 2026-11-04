@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+# stt ランチャー (cross-platform + 依存の自動インストール + cuDNN パス設定)。
+# ~/.local/bin にシンボリックリンクを張って使う想定 (readlink -f で実体を解決)。
+# stt.py は SBV2 venv (torch 等) + faster_whisper を要する。初回に不足分を自動導入する。
+set -euo pipefail
+SELF="$(readlink -f "${BASH_SOURCE[0]}" 2>/dev/null || echo "${BASH_SOURCE[0]}")"
+TTS_DIR="$(cd "$(dirname "$SELF")/.." && pwd)"
+
+pick_py() {
+  local c
+  for c in "${SBV2_VENV_PYTHON:-}" \
+           "$HOME/tts/Style-Bert-VITS2/venv/bin/python" \
+           "/c/tmp/sbv2_venv/Scripts/python.exe"; do
+    [ -n "$c" ] && [ -x "$c" ] && { printf '%s\n' "$c"; return; }
+  done
+  command -v python3 2>/dev/null || command -v python 2>/dev/null
+}
+# set -e のもとでは pick_py の失敗がそのまま代入に伝わり、下のメッセージを出す前に
+# シェルが終了してしまう (python が無い環境で「無言で即終了」になる)。|| true で止める
+PY="$(pick_py || true)"
+if [ -z "$PY" ]; then
+    {
+        echo "python が見つかりません。次の順で探しました:"
+        echo "  1. 環境変数 SBV2_VENV_PYTHON (現在: ${SBV2_VENV_PYTHON:-未設定})"
+        echo "  2. $HOME/tts/Style-Bert-VITS2/venv/bin/python"
+        echo "  3. /c/tmp/sbv2_venv/Scripts/python.exe"
+        echo "  4. PATH 上の python3 / python"
+        echo "使う python を指定する: SBV2_VENV_PYTHON=/path/to/python $0 ..."
+    } >&2
+    exit 1
+fi
+
+# 依存の自動インストール (不足時のみ)。CLIP_TTS_NO_AUTOINSTALL=1 で無効化。
+if [ "${CLIP_TTS_NO_AUTOINSTALL:-0}" != 1 ]; then
+  if ! "$PY" -c "import faster_whisper" >/dev/null 2>&1; then
+    echo "[stt] 依存が不足しています。$PY に自動インストールします: faster-whisper ctranslate2==4.4.0" >&2
+    "$PY" -m pip install --no-input faster-whisper ctranslate2==4.4.0 >&2 \
+      || { echo "[stt] pip install 失敗。手動で: $PY -m pip install faster-whisper ctranslate2==4.4.0" >&2; exit 1; }
+  fi
+fi
+
+# faster_whisper(ctranslate2) 用に torch 同梱の cuDNN8/cuBLAS を LD_LIBRARY_PATH へ (Linux)。
+# 無いと 'libcudnn_ops_infer.so.8 not found' でコアダンプする。
+if [ "$(uname -s 2>/dev/null)" = "Linux" ]; then
+  NVLIBS="$("$PY" -c "import os,glob,nvidia; b=os.path.dirname(nvidia.__file__); print(':'.join(glob.glob(os.path.join(b,'*','lib'))))" 2>/dev/null || true)"
+  [ -n "$NVLIBS" ] && export LD_LIBRARY_PATH="$NVLIBS:${LD_LIBRARY_PATH:-}"
+fi
+exec "$PY" "$TTS_DIR/stt.py" "$@"
