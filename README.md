@@ -54,3 +54,16 @@ ON/OFF をライブ切り替えできる。詳細は `keyboard/windows/README.md
 
 > 管理者権限での昇格、既存のレジストリ値 `Scancode Map` の削除、タスクスケジューラへの登録を行う。
 > 業務用 PC で使う場合は、先に社内規程を確認すること。
+
+## mousejiggler
+
+一定間隔でマウスを左右に小さく動かす (Windows)。座標の書き換えではなく実際の入力イベントを
+送るので、システムのアイドル時間がリセットされる。PowerShell だけで動く。
+
+| ファイル | 用途 |
+|---|---|
+| `MouseJiggler.ps1` | 本体。間隔や距離は引数で変えられる (ファイル冒頭に説明) |
+| `MouseJiggler起動.bat` | ダブルクリックで起動する |
+| `mousejiggler.sh` | Git Bash から起動する |
+
+止めるときは Ctrl + C。
