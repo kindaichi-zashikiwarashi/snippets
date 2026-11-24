@@ -20,7 +20,7 @@
 | `auto_rename_stt.py` | 録音ファイルを内容から自動で命名する |
 | `eng2kana.py` | 英単語をカタカナ読みに変換 |
 | `fetch_dict.py` | 用語の読みを取得して `dictionary.csv` に追記 |
-| `local_llm.py` | OpenAI 互換 API (ローカル LLM) のクライアント |
+| `local_llm.py` | 要約・タイトル生成を LLM に頼む (ローカル / Claude / Codex を切り替え) |
 | `bin/` | 上記のランチャ (Linux / Windows) |
 
 ### 用意するもの
@@ -33,6 +33,8 @@
 - **`dictionary.csv` は空の雛形。** `fetch_dict.py` で育てる
 - `clip_tts.desktop` の `Exec` のパスは環境に合わせて書き換える
 - 話者分離を使う場合のみ `HF_TOKEN` 環境変数と pyannote の規約同意が必要
+- **要約とタイトル生成 (`auto_rename_stt.py`、`stt.py --summarize`) には LLM が要る。**
+  用意の仕方は `local-llm/README.md`。要らなければ `--no-summarize`
 
 ### 接続先
 
@@ -40,11 +42,19 @@
 次の場合はネットワークに出る。
 
 - `fetch_dict.py`: e-words.jp から読みを取得する
+- `--llm claude` / `--llm codex` (または `LLM_BACKEND`) を指定したとき: 文字起こしの全文を
+  それぞれのクラウドへ送る。既定の `local` では送らない
 - 初回のモデル取得: Whisper (約3GB)、Irodori (約4GB)、話者分離のモデルを HuggingFace から取得する
 - `clip_tts.py`: Irodori が無いと自動で clone してインストールする (`--no-start-server` で無効)
 - `bin/stt` / `bin/mic_stt`: 不足パッケージを pip で自動導入する (`CLIP_TTS_NO_AUTOINSTALL=1` で無効)
 - `setup_irodori`: uv を公式のインストーラで導入する
 - `play_latest_wav.sh`: Windows で ffplay が無いと ffmpeg を取得する
+
+## local-llm
+
+要約用のローカル LLM (llama.cpp + llama-swap + Gemma 4) を、その機械に一式そろえる `install.py`。
+GPU を調べて合うものを取得し、SHA-256 を照合してから設定する。
+頼み先の切り替え (ローカル / Claude / Codex) の説明もここ。詳細は `local-llm/README.md`。
 
 ## keyboard/windows
 

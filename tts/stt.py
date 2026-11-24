@@ -17,7 +17,9 @@ Usage:
   （pyannote/speaker-diarization へのアクセス権が必要）
 
 要約 (--summarize) を使う場合:
-  ローカルLLM (:8081) を使う。応答しなければ systemd の llm-swap を自動で起動する
+  既定はローカルLLM (:8081)。応答しなければ systemd の llm-swap を自動で起動する。
+  接続先やモデルは環境変数で変えられる。--llm claude / codex でクラウドにも頼める
+  (詳しくは local_llm.py の冒頭)
 """
 
 import os
@@ -428,7 +430,7 @@ def write_output(results, output_path, diarize):
 
 
 def summarize_transcript(transcript_text, output_path):
-    """ローカル LLM (llama-server :8081) で文字起こしを要約する"""
+    """文字起こしを LLM で要約する (頼み先は local_llm.py。既定はローカル)"""
     sys.path.insert(0, str(Path(__file__).parent))
     import local_llm
 
@@ -464,7 +466,10 @@ def main():
     parser.add_argument("--no-timestamp", action="store_true",
                         help="タイムスタンプを出力しない")
     parser.add_argument("--summarize", "-s", action="store_true",
-                        help="文字起こし後にローカルLLM(llama-server :8081)で要約を生成")
+                        help="文字起こし後に LLM で要約を生成 (頼み先は --llm)")
+    parser.add_argument("--llm", choices=["local", "claude", "codex"], default=None,
+                        help="要約の頼み先 (default: 環境変数 LLM_BACKEND、無ければ local)。"
+                             "claude / codex は文字起こしをクラウドへ送る")
     parser.add_argument("--batch-size", type=int, default=8,
                         help="バッチサイズ (default: 8、OOM時は自動で半減)")
     parser.add_argument("--device", default="cuda", choices=["cuda", "cpu"],
@@ -483,6 +488,10 @@ def main():
 
     output_path = Path(args.output) if args.output else input_path.with_suffix(".txt")
     diarize = not args.no_diarize
+
+    # 要約の頼み先。local_llm は要約の直前に import されるので、環境変数で渡す
+    if args.llm:
+        os.environ["LLM_BACKEND"] = args.llm
 
     # 既存ファイルチェック: 文字起こし済ならスキップ（要約だけ追加生成は許可）
     transcribed = output_path.exists() and output_path.stat().st_size > 0

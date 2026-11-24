@@ -49,6 +49,13 @@ cat > "$OUT/.env.example" <<'ENVEOF'
 # 話者分離 (pyannote) に必要。使わないなら未設定でよい（警告を出して話者分離なしで続行する）
 # https://huggingface.co/settings/tokens で取得し、このファイルを .env にリネームする
 HF_TOKEN=hf_xxxxxxx
+
+# 要約・タイトル生成の頼み先。local / claude / codex (claude と codex はクラウドへ送る)
+#LLM_BACKEND=local
+#LLM_API_BASE=http://127.0.0.1:8081/v1
+#LLM_MODEL=gemma4-chat
+# local が応答しないとき起動する systemd --user のユニット。空にすると自動起動しない
+#LLM_SERVER_UNIT=llm-swap
 ENVEOF
 
 cat > "$OUT/README.md" <<'DOCEOF'
@@ -93,20 +100,23 @@ pyannote は以下 2 つのページで「Agree」を押しておく必要があ
 
 ## 要約・タイトル生成（`--no-summarize` を付けないとき）
 
-`local_llm.py` の先頭に、環境依存の設定が直書きされている。
+頼み先は `--llm local / claude / codex` で選ぶ（既定は local）。
+**claude / codex は文字起こしの全文をクラウドへ送る。**
 
-| 定数 | 既定値 | 意味 |
+local の設定は、環境変数か `.env` で行う（ファイルの書き換えは不要）。
+
+| 環境変数 | 既定値 | 意味 |
 |---|---|---|
-| `API_BASE` | `http://127.0.0.1:8081/v1` | OpenAI 互換 API の場所 |
-| `MODEL` | `gemma4-chat` | モデル名 |
-| `SERVER_UNIT` | `llm-swap` | 未応答のとき `systemctl --user start` するユニット |
+| `LLM_BACKEND` | `local` | 頼み先。`--llm` が優先 |
+| `LLM_API_BASE` | `http://127.0.0.1:8081/v1` | OpenAI 互換 API の場所 |
+| `LLM_MODEL` | `gemma4-chat` | モデル名 |
+| `LLM_SERVER_UNIT` | `llm-swap` | 未応答のとき `systemctl --user start` するユニット。空で自動起動なし |
 
-**導入先に `llm-swap` ユニットが無いと、文字起こしを始める前に
-「ローカル LLM サーバの起動に失敗しました」で終了する。** 対処は次のどれか。
+**導入先に LLM が無いと、文字起こしを始める前にエラーで終了する。** 対処は次のどれか。
 
 1. 要約が要らないなら `--no-summarize` を付ける（LLM に一切触らない）
-2. :8081 に OpenAI 互換サーバを立て、モデル名を `gemma4-chat` にする
-3. `local_llm.py` の上記 3 定数を、その環境に合わせて書き換える
+2. OpenAI 互換サーバを立て、上の環境変数で接続先とモデル名を合わせる
+3. `--llm claude` か `--llm codex` で CLI に頼む（クラウドへ送ってよい内容のときだけ）
 
 ## Python の選択
 
@@ -128,7 +138,8 @@ bin\stt.cmd voice.m4a -o out.txt
 - `.cmd` は `SBV2_VENV_PYTHON` が未設定なら `C:\tmp\sbv2_venv\Scripts\python.exe` を使う。
   venv の場所が違うなら、環境変数 `SBV2_VENV_PYTHON` を設定する。
 - **`systemctl` が無いので、LLM の自動起動はできない。** 要約するなら
-  `API_BASE` の先に OpenAI 互換サーバを自分で立てておく。要らなければ `--no-summarize`。
+  OpenAI 互換サーバを自分で立てて `LLM_API_BASE` で指定し、`LLM_SERVER_UNIT` は空にする。
+  要らなければ `--no-summarize`。
 - ffmpeg は PATH 上にあればよい。`stt.py` は PATH の前に
   `$FFMPEG_BIN`（未設定なら `$HOME/ffmpeg/bin`）も見る。
 - パッケージの導入は `py -m pip install -r requirements-stt.txt` ＋ torch / torchaudio。
@@ -140,7 +151,7 @@ bin\stt.cmd voice.m4a -o out.txt
 - **Windows でウィンドウが一瞬で消える**: `.cmd` をダブルクリックしないこと。
   cmd.exe か PowerShell を開いてそこから実行すれば、メッセージが読める。
 - **`ffmpegが見つかりません`**: ffmpeg を PATH に入れる。
-- **要約の手前で止まる**: その環境に LLM が無い。`--no-summarize` を付ける。
+- **要約の手前で止まる**: その環境に LLM が無い。`--no-summarize` を付けるか、`--llm` で頼み先を変える。
 DOCEOF
 
 echo "生成: $OUT"

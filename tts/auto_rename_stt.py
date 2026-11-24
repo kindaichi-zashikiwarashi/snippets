@@ -18,6 +18,7 @@ Usage:
 """
 
 import argparse
+import os
 import re
 import subprocess
 import sys
@@ -70,7 +71,7 @@ def sanitize_filename(text: str, max_len: int = 40) -> str:
 
 def generate_title(summary_text: str) -> str | None:
     """要約から短いタイトルを生成（ローカルLLM）"""
-    print("\nタイトル生成中（ローカルLLM）...")
+    print(f"\nタイトル生成中（{local_llm.backend_label()}）...")
     try:
         title = local_llm.generate_title(summary_text)
     except local_llm.LocalLLMError as e:
@@ -115,8 +116,11 @@ def main():
     parser.add_argument("--no-diarize", action="store_true",
                         help="話者分離を無効化（高速化）")
     parser.add_argument("--no-summarize", action="store_true",
-                        help="要約・タイトル生成をしない（ローカルLLM不要。"
+                        help="要約・タイトル生成をしない（LLM不要。"
                              "文字起こしだけ作り、リネームはしない）")
+    parser.add_argument("--llm", choices=local_llm.BACKENDS, default=None,
+                        help="要約・タイトル生成の頼み先 (default: 環境変数 LLM_BACKEND、"
+                             "無ければ local)。claude / codex は文字起こしをクラウドへ送る")
     parser.add_argument("--batch-size", type=int, default=8,
                         help="stt.pyのbatch_size")
     parser.add_argument("--model", default="large-v2",
@@ -141,12 +145,19 @@ def main():
         print(f"stt.py が見つかりません: {stt_py}", file=sys.stderr)
         sys.exit(1)
 
-    # 要約・タイトル生成にローカルLLMが要るので、文字起こし（数十分かかり得る）の前に
-    # 確認し、落ちていれば起動する。llama-swap はモデルを最初の要約リクエストで
+    # 要約・タイトル生成に LLM が要るので、文字起こし（数十分かかり得る）の前に
+    # 確認し、local で落ちていれば起動する。llama-swap はモデルを最初の要約リクエストで
     # 読み込むので、ここで起動しても文字起こし中の Whisper と VRAM を取り合わない
     # --no-summarize なら LLM は一切使わないので、起動も確認もしない
     if not args.no_summarize:
         try:
+            if args.llm:
+                local_llm.set_backend(args.llm)
+                # 下で起動する stt.py にも同じ頼み先を引き継ぐ
+                os.environ["LLM_BACKEND"] = args.llm
+            if local_llm.BACKEND != "local":
+                print(f"注意: 要約とタイトル生成を {local_llm.backend_label()} に頼みます。"
+                      "文字起こしの全文がクラウドへ送られます。")
             local_llm.ensure_server()
         except local_llm.LocalLLMError as e:
             print(e, file=sys.stderr)

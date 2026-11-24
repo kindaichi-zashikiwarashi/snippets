@@ -1,28 +1,99 @@
-"""ローカル LLM (:8081) を叩く共通ヘルパ。
+"""要約・タイトル生成を LLM に頼む共通ヘルパ。
 
-チャット用 :8081 (llama-swap 経由の gemma4-chat) の OpenAI 互換 API を使う。
-Claude Code CLI の代わりに要約やタイトル生成をローカルで済ませるためのもの。
+頼み先 (バックエンド) は 3 つから選べる。既定は local。
 
-:8081 が応答しなければ systemd --user の llm-swap を自動で起動する
+  local  : OpenAI 互換 API のサーバ (llama.cpp / llama-swap / Ollama / LM Studio 等)。
+           文字起こしは手元の機械から外へ出ない。
+  claude : Claude Code の CLI (`claude -p`)。
+  codex  : Codex の CLI (`codex exec`)。
+
+⚠ claude / codex を選ぶと、文字起こしの全文がクラウドへ送られる。
+
+設定は環境変数、またはこのファイルの隣の .env で行う (書き換え不要)。
+
+  LLM_BACKEND          local / claude / codex (既定 local)。--llm オプションが優先
+  LLM_API_BASE         local の接続先 (既定 http://127.0.0.1:8081/v1)
+  LLM_MODEL            local のモデル名 (既定 gemma4-chat)
+  LLM_API_KEY          local のサーバが鍵を要求する場合のみ
+  LLM_SERVER_UNIT      local が応答しないとき起動する systemd --user のユニット名
+                       (既定 llm-swap)。空にすると自動起動しない
+  LLM_SERVER_CMD       local が応答しないとき実行する起動スクリプトのパス
+                       (systemd が無い Windows など向け。指定するとユニットより優先)
+  LLM_DISABLE_THINKING local で「考える」機能を切る指定を送るか (既定 1。0 で送らない)
+  LLM_MAX_INPUT_CHARS  1 回に渡す最大文字数 (既定 local 16000 / claude・codex 100000)
+  LLM_CLI_MODEL        claude / codex に渡すモデル名 (未設定なら各 CLI の既定)
 """
 
 import json
+import os
+import shutil
 import subprocess
 import sys
+import tempfile
 import time
 import urllib.error
 import urllib.request
+from pathlib import Path
 
-API_BASE = "http://127.0.0.1:8081/v1"
-MODEL = "gemma4-chat"
 
-# サーバの ctx は既定 24576。プロンプト以外(出力・テンプレート)の余白を引いた
+def _load_dotenv() -> None:
+    """このファイルの隣の .env を読む。既に設定済みの環境変数は上書きしない"""
+    env_path = Path(__file__).resolve().parent / ".env"
+    try:
+        lines = env_path.read_text(encoding="utf-8").splitlines()
+    except OSError:
+        return
+    for line in lines:
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, _, value = line.partition("=")
+        os.environ.setdefault(key.strip(), value.strip().strip('"').strip("'"))
+
+
+_load_dotenv()
+
+BACKENDS = ("local", "claude", "codex")
+BACKEND = "local"
+
+API_BASE = (os.environ.get("LLM_API_BASE", "").strip()
+            or "http://127.0.0.1:8081/v1").rstrip("/")
+MODEL = os.environ.get("LLM_MODEL", "").strip() or "gemma4-chat"
+API_KEY = os.environ.get("LLM_API_KEY", "").strip()
+CLI_MODEL = os.environ.get("LLM_CLI_MODEL", "").strip()
+DISABLE_THINKING = os.environ.get("LLM_DISABLE_THINKING", "1").strip() != "0"
+
 # 実質の入力上限を文字数で見積もる。日本語は概ね 1 文字 ≒ 1 トークン。
+# local の既定は ctx 24576 のサーバを想定し、出力とテンプレートの余白を引いた値。
+_DEFAULT_MAX_INPUT_CHARS = {"local": 16000, "claude": 100000, "codex": 100000}
 MAX_INPUT_CHARS = 16000
 
 
 class LocalLLMError(RuntimeError):
-    """ローカル LLM が使えない/失敗した"""
+    """LLM が使えない/失敗した (名前は互換のため据え置き。どのバックエンドでも使う)"""
+
+
+def set_backend(name: str | None) -> None:
+    """頼み先を切り替える。None や空文字なら何もしない"""
+    global BACKEND, MAX_INPUT_CHARS
+    if not name:
+        return
+    name = name.strip().lower()
+    if name not in BACKENDS:
+        raise LocalLLMError(
+            f"LLM の頼み先 '{name}' は使えません。{' / '.join(BACKENDS)} から選んでください。"
+        )
+    BACKEND = name
+    env_max = os.environ.get("LLM_MAX_INPUT_CHARS", "").strip()
+    try:
+        MAX_INPUT_CHARS = int(env_max) if env_max else _DEFAULT_MAX_INPUT_CHARS[name]
+    except ValueError as e:
+        raise LocalLLMError(f"LLM_MAX_INPUT_CHARS が数値ではありません: {env_max}") from e
+
+
+def backend_label() -> str:
+    """進捗表示用の名前"""
+    return {"local": "ローカル LLM", "claude": "Claude", "codex": "Codex"}[BACKEND]
 
 
 # 要約が不要なときの逃げ道。systemd が無い環境 (Windows 等) では自動起動できないため、
@@ -30,31 +101,161 @@ class LocalLLMError(RuntimeError):
 NO_LLM_HINT = (
     "  要約・タイトル生成が不要なら auto_rename_stt.py に --no-summarize を付ける"
     "（LLM に一切触らず、文字起こしだけ作る）。\n"
-    "  別の環境で使うなら local_llm.py の API_BASE / MODEL / SERVER_UNIT を"
-    "その環境に合わせて書き換える。"
+    "  別のサーバを使うなら環境変数 LLM_API_BASE / LLM_MODEL / LLM_SERVER_UNIT で指定する。\n"
+    "  頼み先を変えるなら --llm claude か --llm codex（文字起こしがクラウドへ送られる）。"
 )
 
 
+def _headers() -> dict:
+    h = {"Content-Type": "application/json"}
+    if API_KEY:
+        h["Authorization"] = f"Bearer {API_KEY}"
+    return h
+
+
 def is_available(timeout: float = 3.0) -> bool:
-    """llama-server が起動しているか"""
+    """local のサーバが起動しているか"""
     try:
-        with urllib.request.urlopen(f"{API_BASE}/models", timeout=timeout):
+        req = urllib.request.Request(f"{API_BASE}/models", headers=_headers())
+        with urllib.request.urlopen(req, timeout=timeout):
             return True
     except (urllib.error.URLError, OSError):
         return False
 
 
-# :8081 を受ける llama-swap の systemd --user ユニット
-SERVER_UNIT = "llm-swap"
+# local のサーバを受け持つ systemd --user ユニット。空なら自動起動しない
+SERVER_UNIT = os.environ.get("LLM_SERVER_UNIT", "llm-swap").strip()
+# 起動スクリプト (1 つのファイルのパス)。指定があればユニットより優先する
+SERVER_CMD = os.environ.get("LLM_SERVER_CMD", "").strip()
 # llama-swap 本体が応答するまでの待ち時間。モデルは最初のリクエスト時に
 # 読み込まれる (その待ちは chat() の timeout 側) ので、ここは短くてよい
 START_TIMEOUT = 60
 
 
+def _wait_until_available(timeout: float, log_hint: str) -> None:
+    deadline = time.monotonic() + timeout
+    while time.monotonic() < deadline:
+        if is_available():
+            print("  起動しました（モデルは最初の要約時に読み込まれます）")
+            return
+        time.sleep(1)
+    raise LocalLLMError(
+        f"ローカル LLM サーバを起動しましたが、{timeout:.0f} 秒待っても応答がありません。\n"
+        f"  {log_hint}\n"
+        + NO_LLM_HINT
+    )
+
+
+def _server_log_path() -> Path:
+    return Path(tempfile.gettempdir()) / "local_llm_server.log"
+
+
+def _spawn_server() -> None:
+    """LLM_SERVER_CMD の起動スクリプトを、このプロセスから切り離して動かす"""
+    cmd_path = Path(SERVER_CMD).expanduser()
+    if not cmd_path.is_file():
+        raise LocalLLMError(
+            f"LLM_SERVER_CMD のファイルが見つかりません: {cmd_path}\n" + NO_LLM_HINT
+        )
+    print(f"ローカル LLM サーバ ({API_BASE}) が応答しないため起動します: {cmd_path}")
+    try:
+        log = open(_server_log_path(), "ab")
+        if os.name == "nt":
+            # .cmd は cmd.exe 経由で動かす。窓を出さず、親が終わっても残す
+            flags = subprocess.CREATE_NO_WINDOW | subprocess.CREATE_NEW_PROCESS_GROUP
+            subprocess.Popen(["cmd.exe", "/c", str(cmd_path)], stdin=subprocess.DEVNULL,
+                             stdout=log, stderr=log, creationflags=flags)
+        else:
+            subprocess.Popen([str(cmd_path)], stdin=subprocess.DEVNULL,
+                             stdout=log, stderr=log, start_new_session=True)
+    except OSError as e:
+        raise LocalLLMError(
+            f"ローカル LLM サーバを起動できませんでした: {e}\n" + NO_LLM_HINT
+        ) from e
+
+
+_INSTALLER = Path(__file__).resolve().parent.parent / "local-llm" / "install.py"
+
+
+def _offer_install() -> bool:
+    """ローカル LLM が無いとき、local-llm/install.py で入れるか本人に聞く。入れたら True"""
+    if not _INSTALLER.is_file() or not sys.stdin.isatty() or os.environ.get("LLM_NO_INSTALL_PROMPT"):
+        return False
+    print(
+        "\nこの機械には、要約に使うローカル LLM が入っていないようです。\n"
+        f"  {_INSTALLER} で入れられます (GPU を調べて、要約用の軽いモデルを取得します)。\n"
+        "  入れずに続けるなら --no-summarize、クラウドに頼むなら --llm claude / codex。"
+    )
+    try:
+        if input("今入れますか？ [y/N] ").strip().lower() not in ("y", "yes"):
+            return False
+    except EOFError:
+        return False
+    r = subprocess.run([sys.executable, str(_INSTALLER)])
+    if r.returncode != 0:
+        print("ローカル LLM のインストールが終わりませんでした。", file=sys.stderr)
+        return False
+    _reload_settings()
+    return True
+
+
+def _reload_settings() -> None:
+    """install.py が tts/.env に書いた接続先・起動方法を読み直す"""
+    global API_BASE, MODEL, SERVER_UNIT, SERVER_CMD
+    env_path = Path(__file__).resolve().parent / ".env"
+    try:
+        lines = env_path.read_text(encoding="utf-8").splitlines()
+    except OSError:
+        lines = []
+    for line in lines:
+        line = line.strip()
+        if line.startswith("LLM_") and "=" in line and not line.startswith("#"):
+            k, _, v = line.partition("=")
+            os.environ[k.strip()] = v.strip().strip('"').strip("'")
+    API_BASE = (os.environ.get("LLM_API_BASE", "").strip() or "http://127.0.0.1:8081/v1").rstrip("/")
+    MODEL = os.environ.get("LLM_MODEL", "").strip() or "gemma4-chat"
+    SERVER_UNIT = os.environ.get("LLM_SERVER_UNIT", "llm-swap").strip()
+    SERVER_CMD = os.environ.get("LLM_SERVER_CMD", "").strip()
+
+
 def ensure_server(timeout: float = START_TIMEOUT) -> None:
-    """未起動なら llm-swap を起動し、応答するまで待つ。起動できなければ例外"""
+    """頼み先が使える状態か確かめる。使えなければ例外。
+
+    local  : 未起動なら起動し、応答するまで待つ。起動できず、ローカル LLM が入っていない
+             ようなら、その場で local-llm/install.py で入れるか聞く
+    claude / codex : コマンドが PATH にあるかだけ見る
+    """
+    try:
+        _ensure_server(timeout)
+    except LocalLLMError:
+        if BACKEND != "local" or not _offer_install():
+            raise
+        _ensure_server(timeout)
+
+
+def _ensure_server(timeout: float) -> None:
+    if BACKEND != "local":
+        if not shutil.which(BACKEND):
+            raise LocalLLMError(
+                f"{BACKEND} コマンドが見つかりません。インストールして PATH を通すか、"
+                "--llm local を使ってください。\n" + NO_LLM_HINT
+            )
+        return
+
     if is_available():
         return
+
+    if SERVER_CMD:
+        _spawn_server()
+        _wait_until_available(timeout, f"ログの確認: {_server_log_path()}")
+        return
+
+    if not SERVER_UNIT:
+        raise LocalLLMError(
+            f"ローカル LLM サーバ ({API_BASE}) が応答しません。"
+            "サーバを起動してからやり直してください"
+            "（LLM_SERVER_UNIT が空なので自動起動はしません）。\n" + NO_LLM_HINT
+        )
 
     print(
         f"ローカル LLM サーバ ({API_BASE}) が応答しないため起動します: "
@@ -78,25 +279,75 @@ def ensure_server(timeout: float = START_TIMEOUT) -> None:
             + NO_LLM_HINT
         )
 
-    deadline = time.monotonic() + timeout
-    while time.monotonic() < deadline:
-        if is_available():
-            print("  起動しました（モデルは最初の要約時に読み込まれます）")
-            return
-        time.sleep(1)
-    raise LocalLLMError(
-        f"ローカル LLM サーバを起動しましたが、{timeout:.0f} 秒待っても応答がありません。\n"
-        f"  ログの確認: journalctl --user -u {SERVER_UNIT} -n 50\n"
-        + NO_LLM_HINT
-    )
+    _wait_until_available(timeout, f"ログの確認: journalctl --user -u {SERVER_UNIT} -n 50")
+
+def _chat_cli(system: str, user: str, timeout: int) -> str:
+    """claude / codex の CLI に 1 回だけ問い合わせる。
+
+    文字起こしには何が書かれているか分からないので、空の一時ディレクトリで動かし、
+    ファイルを読み書きする道具は渡さない (claude) / 読み取り専用にする (codex)。
+    本文は引数ではなく標準入力で渡す (長さの上限と、他のプロセスから見える問題を避ける)。
+    """
+    exe = shutil.which(BACKEND)
+    if not exe:
+        raise LocalLLMError(f"{BACKEND} コマンドが見つかりません。")
+
+    with tempfile.TemporaryDirectory(prefix="llm_cli_") as work:
+        out_file = Path(work) / "last_message.txt"
+        if BACKEND == "claude":
+            cmd = [exe, "-p", "--system-prompt", system,
+                   "--no-session-persistence", "--tools", "",
+                   "--strict-mcp-config"]  # 利用者が登録した外部連携 (MCP) も渡さない
+            if CLI_MODEL:
+                cmd += ["--model", CLI_MODEL]
+            stdin_text = user
+        else:  # codex
+            cmd = [exe, "exec", "--skip-git-repo-check", "--ephemeral",
+                   "-s", "read-only", "-C", work, "-o", str(out_file)]
+            if CLI_MODEL:
+                cmd += ["-m", CLI_MODEL]
+            cmd.append("-")
+            stdin_text = f"{system}\n\n{user}"
+
+        try:
+            r = subprocess.run(
+                cmd, input=stdin_text.encode("utf-8"), capture_output=True,
+                timeout=timeout, cwd=work,
+            )
+        except subprocess.TimeoutExpired as e:
+            raise LocalLLMError(f"{BACKEND} が {timeout} 秒以内に応答しませんでした。") from e
+        except OSError as e:
+            raise LocalLLMError(f"{BACKEND} を起動できませんでした: {e}") from e
+
+        stdout = r.stdout.decode("utf-8", errors="replace").strip()
+        stderr = r.stderr.decode("utf-8", errors="replace").strip()
+        if r.returncode != 0:
+            raise LocalLLMError(
+                f"{BACKEND} がエラーで終了しました (exit={r.returncode}): "
+                + (stderr or stdout)[-500:]
+            )
+
+        content = stdout
+        if BACKEND == "codex":
+            try:
+                content = out_file.read_text(encoding="utf-8").strip()
+            except OSError:
+                pass  # 書き出されなかったら標準出力を使う
+
+    if not content:
+        raise LocalLLMError(f"{BACKEND} から空の応答が返りました。{stderr[-300:]}")
+    return content
 
 
 def chat(system: str, user: str, max_tokens: int = 2000,
          temperature: float = 0.3, timeout: int = 900) -> str:
-    """1 往復のチャット。応答テキストを返す。"""
-    # gemma4-chat は thinking モデルで、無効化しないと reasoning_content に
-    # max_tokens を食い潰され content が空になる。"/no_think" は不安定なため
-    # chat_template_kwargs で確実に切る
+    """1 往復のチャット。応答テキストを返す。
+
+    max_tokens と temperature は local にだけ効く (CLI には渡す手段が無い)。
+    """
+    if BACKEND != "local":
+        return _chat_cli(system, user, timeout)
+
     req = {
         "model": MODEL,
         "messages": [
@@ -105,12 +356,16 @@ def chat(system: str, user: str, max_tokens: int = 2000,
         ],
         "temperature": temperature,
         "max_tokens": max_tokens,
-        "chat_template_kwargs": {"enable_thinking": False},
     }
+    # gemma4-chat のような thinking モデルは、無効化しないと reasoning_content に
+    # max_tokens を食い潰され content が空になる。"/no_think" は不安定なため
+    # chat_template_kwargs で切る (llama.cpp の指定。受け付けないサーバでは
+    # LLM_DISABLE_THINKING=0 で送らないようにできる)
+    if DISABLE_THINKING:
+        req["chat_template_kwargs"] = {"enable_thinking": False}
     data = json.dumps(req, ensure_ascii=False).encode("utf-8")
     request = urllib.request.Request(
-        f"{API_BASE}/chat/completions", data,
-        {"Content-Type": "application/json"},
+        f"{API_BASE}/chat/completions", data, _headers(),
     )
     try:
         with urllib.request.urlopen(request, timeout=timeout) as r:
@@ -141,7 +396,7 @@ def chat(system: str, user: str, max_tokens: int = 2000,
         if reasoning:
             hint = (
                 "\n  reasoning_content に出力が入り content が空でした"
-                "（gemma4-chat の thinking 暴走）: "
+                "（thinking モデルが考えるだけで予算を使い切った）: "
                 + reasoning[:200]
             )
         raise LocalLLMError(f"LLM から空の応答が返りました。{hint}")
@@ -231,11 +486,11 @@ def summarize(transcript_text: str, progress=print) -> str:
     chunks = split_chunks(transcript_text)
 
     if len(chunks) == 1:
-        progress("\n要約中（ローカル LLM）...")
+        progress(f"\n要約中（{backend_label()}）...")
         return chat(SUMMARY_SYSTEM, f"{SUMMARY_INSTRUCTION}\n\n{chunks[0]}",
                     max_tokens=3000)
 
-    progress(f"\n要約中（ローカル LLM、{len(chunks)} 分割）...")
+    progress(f"\n要約中（{backend_label()}、{len(chunks)} 分割）...")
     partials = []
     for i, chunk in enumerate(chunks, 1):
         progress(f"  部分要約 {i}/{len(chunks)} ...")
@@ -262,3 +517,10 @@ def generate_title(summary_text: str) -> str:
         max_tokens=100,
         temperature=0.2,
     )
+
+
+# 環境変数 LLM_BACKEND の値を反映する (不正な値はここで止める)
+try:
+    set_backend(os.environ.get("LLM_BACKEND", "").strip() or "local")
+except LocalLLMError as _e:
+    sys.exit(str(_e))
