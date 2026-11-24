@@ -424,6 +424,13 @@ def update_env(pairs: dict) -> None:
 
 # ---------------------------------------------------------------------------
 def main() -> None:
+    # Git Bash (mintty) では標準出力がパイプ扱いになり、進捗がためられて最後にまとめて出る。
+    # 1 行ごとに出す
+    for s in (sys.stdout, sys.stderr):
+        try:
+            s.reconfigure(line_buffering=True)
+        except (AttributeError, ValueError):
+            pass
     default_dir = (Path(os.environ.get("LOCALAPPDATA", str(Path.home()))) / "snippets-local-llm"
                    if IS_WINDOWS else Path.home() / ".local" / "share" / "snippets-local-llm")
     ap = argparse.ArgumentParser(description="要約用のローカル LLM を一式そろえる")

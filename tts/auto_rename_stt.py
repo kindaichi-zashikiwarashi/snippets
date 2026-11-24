@@ -107,6 +107,12 @@ def rename_with_sidecars(video_path: Path, new_base: str) -> Path:
 
 
 def main():
+    # Git Bash (mintty) では標準出力がパイプ扱いになり、表示がためられて遅れて出る。1 行ごとに出す
+    for _s in (sys.stdout, sys.stderr):
+        try:
+            _s.reconfigure(line_buffering=True)
+        except (AttributeError, ValueError):
+            pass
     parser = argparse.ArgumentParser(
         description="動画/音声を文字起こし→要約→自動リネーム",
     )
@@ -168,7 +174,8 @@ def main():
     summary_txt = video_path.parent / f"{video_path.stem}.summary.txt"
 
     # stt.py を実行（--no-summarize 以外は要約付き）
-    cmd = [sys.executable, str(stt_py), str(video_path),
+    # -u: 文字起こしの進捗を、ためずにその場で出す (mintty で特に効く)
+    cmd = [sys.executable, "-u", str(stt_py), str(video_path),
            "-o", str(transcript_txt),
            "--batch-size", str(args.batch_size),
            "--model", args.model,

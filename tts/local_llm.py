@@ -174,24 +174,73 @@ def _spawn_server() -> None:
         ) from e
 
 
+def _is_mintty_pipe(stream) -> bool:
+    """Windows で、stream が mintty (Git Bash / MSYS2 / Cygwin) の端末につながっているか。
+
+    mintty から Windows 版の Python を動かすと、キーボードで打っていても標準入出力は
+    パイプになり isatty() は False を返す。そのパイプの名前は
+    \\msys-<番号>-pty<N>-from-master や \\cygwin-<番号>-pty<N>-to-master になるので、
+    名前で見分ける。
+    """
+    if os.name != "nt" or stream is None:
+        return False
+    try:
+        import ctypes
+        import msvcrt
+        from ctypes import wintypes
+        handle = msvcrt.get_osfhandle(stream.fileno())
+        kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+        if kernel32.GetFileType(wintypes.HANDLE(handle)) != 3:   # 3 = FILE_TYPE_PIPE
+            return False
+
+        class FILE_NAME_INFO(ctypes.Structure):
+            _fields_ = [("FileNameLength", wintypes.DWORD),
+                        ("FileName", wintypes.WCHAR * 1024)]
+
+        info = FILE_NAME_INFO()
+        ok = kernel32.GetFileInformationByHandleEx(
+            wintypes.HANDLE(handle), 2,                           # 2 = FileNameInfo
+            ctypes.byref(info), ctypes.sizeof(info))
+        if not ok:
+            return False
+        name = info.FileName[: info.FileNameLength // 2]
+    except (OSError, ValueError, AttributeError, ImportError):
+        return False
+    return ("msys-" in name or "cygwin-" in name) and "-pty" in name
+
+
+def _is_interactive() -> bool:
+    """本人がキーボードで操作しているか (端末、または mintty)"""
+    stdin = sys.stdin
+    if stdin is None:
+        return False
+    try:
+        if stdin.isatty():
+            return True
+    except (OSError, ValueError):
+        return False
+    return _is_mintty_pipe(stdin)
+
+
 _INSTALLER = Path(__file__).resolve().parent.parent / "local-llm" / "install.py"
 
 
 def _offer_install() -> bool:
     """ローカル LLM が無いとき、local-llm/install.py で入れるか本人に聞く。入れたら True"""
-    if not _INSTALLER.is_file() or not sys.stdin.isatty() or os.environ.get("LLM_NO_INSTALL_PROMPT"):
+    if not _INSTALLER.is_file() or not _is_interactive() or os.environ.get("LLM_NO_INSTALL_PROMPT"):
         return False
     print(
         "\nこの機械には、要約に使うローカル LLM が入っていないようです。\n"
         f"  {_INSTALLER} で入れられます (GPU を調べて、要約用の軽いモデルを取得します)。\n"
-        "  入れずに続けるなら --no-summarize、クラウドに頼むなら --llm claude / codex。"
+        "  入れずに続けるなら --no-summarize、クラウドに頼むなら --llm claude / codex。",
+        flush=True,
     )
     try:
         if input("今入れますか？ [y/N] ").strip().lower() not in ("y", "yes"):
             return False
     except EOFError:
         return False
-    r = subprocess.run([sys.executable, str(_INSTALLER)])
+    r = subprocess.run([sys.executable, "-u", str(_INSTALLER)])
     if r.returncode != 0:
         print("ローカル LLM のインストールが終わりませんでした。", file=sys.stderr)
         return False
